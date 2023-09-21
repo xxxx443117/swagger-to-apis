@@ -1,0 +1,5071 @@
+{
+  "openapi": "3.0.0",
+  "components": {
+    "schemas": {
+      "p7-go-server.api.nft.v1.ListBlindBoxRulesReq": {
+        "properties": {
+          "productId": {
+            "description": "nft产品ID",
+            "format": "*int",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "required": ["productId"],
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.ListBlindBoxRulesRes": {
+        "properties": {
+          "list": {
+            "description": "规则",
+            "format": "[]model.ListBlindBoxRulesItemOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.ListBlindBoxRulesItemOutput"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.ListBlindBoxRulesItemOutput": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "boxProductId": {
+            "description": "盲盒nft",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftProductId": {
+            "description": "开出的nft产品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "total": {
+            "description": "可以产出的总数(展示)",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "quantityLeft": {
+            "description": "剩余产出",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nft1155Amount": {
+            "description": "当为nft1155时数量",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nft721Level": {
+            "description": "当为nft721时等级",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft1155LogListReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号,默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量,最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "fromId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "toId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "prodcutId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "orderType": {
+            "description": "0用户转账  101开盲盒销毁 102升级鞋子销毁 103游戏销毁 104 卖出 210mint 211空投 201开盲盒产出 202升级鞋子产出 203游戏产出 204买入  205销售单撤回",
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft1155LogListRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "[]model.Nft1155LogListItemOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.Nft1155LogListItemOutput"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.Nft1155LogListItemOutput": {
+        "properties": {
+          "id": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "fromId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "toId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "toBeforeBalance": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "toAfterBalance": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "fromBeforeBalance": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "fromAfterBalance": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "amount": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "prodcutId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "orderType": {
+            "description": "1:用户转入 2:用户转出 110:合成/升级消耗 120:游戏消耗 130:开盲盒消耗 140:卖出 220:挖矿释放 130:盲盒开出 230:买入",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "businessLogId": {
+            "description": "关联的业务ID",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft721LogListReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号,默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量,最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "fromId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "toId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "prodcutId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "orderType": {
+            "description": "0用户转账  101开盲盒销毁 102升级鞋子销毁 103游戏销毁 104 卖出 210mint 211空投 201开盲盒产出 202升级鞋子产出 203游戏产出 204买入  205销售单撤回",
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft721LogListRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "[]model.Nft721LogListItemOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.Nft721LogListItemOutput"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.Nft721LogListItemOutput": {
+        "properties": {
+          "id": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "fromId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "toId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftId": {
+            "description": "nftId",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "prodcutId": {
+            "description": "产品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "orderType": {
+            "description": "1:用户转入 2:用户转出 110:合成/升级消耗 120:游戏消耗 130:开盲盒消耗 140:卖出 220:挖矿产出 130:盲盒开出 230:买入",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "businessLogId": {
+            "description": "关联的业务ID",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft1155ListReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号,默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量,最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "ownerId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "产品id",
+            "format": "*uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "productCode": {
+            "description": "产品code",
+            "format": "*string",
+            "properties": {},
+            "type": "string"
+          },
+          "productType": {
+            "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+            "format": "*int",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft1155ListRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "[]model.Nft1155ListItemOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.Nft1155ListItemOutput"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.Nft1155ListItemOutput": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "ownerId": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftProductId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "balance": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "freeze": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft721ListReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号,默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量,最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "ownerId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "产品id",
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productCode": {
+            "description": "产品code",
+            "format": "*string",
+            "properties": {},
+            "type": "string"
+          },
+          "productType": {
+            "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+            "format": "*int",
+            "properties": {},
+            "type": "integer"
+          },
+          "status": {
+            "description": "类型: 1.正常 2.出售中 3.挖矿",
+            "format": "*int",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft721ListRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "[]model.Nft721ListItemOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.Nft721ListItemOutput"
+            },
+            "properties": {},
+            "type": "array"
+          },
+          "systemTime": {
+            "description": "系统时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.Nft721ListItemOutput": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "ownerId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "tokenId": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftProductId": {
+            "description": "NFT产品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "level": {
+            "description": "等级 从0开始",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "status": {
+            "description": "状态 1.正常 2.出售中  3.质押中",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "Slot": {
+            "$ref": "#/components/schemas/p7-go-server.internal.model.game.GetUserNft721SlotOutput"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.game.GetUserNft721SlotOutput": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "slotProductId": {
+            "description": "插槽产品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "amount": {
+            "description": "剩余数量",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "usedPending": {
+            "description": "已使用待结算",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "lastSettlementTime": {
+            "description": "最后结算时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "expectedEndTime": {
+            "description": "预期结束时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft721DetailReq": {
+        "properties": {
+          "id": {
+            "description": "id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.Nft721DetailRes": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "ownerId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "tokenId": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftProductId": {
+            "description": "NFT产品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "level": {
+            "description": "等级 从0开始",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "status": {
+            "description": "状态 1.正常 2.出售中  3.质押中",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "Slot": {
+            "$ref": "#/components/schemas/p7-go-server.internal.model.game.GetUserNft721SlotOutput"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "systemTime": {
+            "description": "系统时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.OpenBlindBoxReq": {
+        "properties": {
+          "productId": {
+            "description": "id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "required": ["productId"],
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.OpenBlindBoxRes": {
+        "properties": {
+          "productId": {
+            "description": "产出nft产品",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "TokenId": {
+            "description": "nft tokenid(开出鞋子时有值)",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nft721Level": {
+            "description": "当为nft721时等级",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "Amount": {
+            "description": "产生数量(开出材料时有值)",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.NftProductListReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号,默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量,最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "productType": {
+            "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+            "format": "*int",
+            "properties": {},
+            "type": "integer"
+          },
+          "productCode": {
+            "description": "产品code",
+            "format": "*string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.nft.v1.NftProductListRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "[]model.NftProductItemOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.NftProductItemOutput"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.NftProductItemOutput": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftCollectionId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftCollectionTitle": {
+            "description": "nft集合名称",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "authorId": {
+            "description": "作者Id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "publisherId": {
+            "description": "发布者id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "authorName": {
+            "description": "作者名称",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "publisherName": {
+            "description": "发布者名称",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "productType": {
+            "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "productCode": {
+            "description": "产品code",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "total": {
+            "description": "发行总数",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "isErc721": {
+            "description": "是否721 0:否 1:是",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "firstPrice": {
+            "description": "首发价",
+            "format": "float64",
+            "properties": {},
+            "type": "number"
+          },
+          "resLink": {
+            "description": "图片或者视频链接",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "title": {
+            "description": "名称",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "desc": {
+            "description": "描述",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.article.v1.GetAnnouncemenListReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号,默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量,最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "type": {
+            "description": "announcement类型: 1:公告 2:帮助中心 3.首页弹出",
+            "format": "*int",
+            "properties": {},
+            "type": "integer"
+          },
+          "language": {
+            "description": "语言",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.article.v1.GetAnnouncemenListRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "*[]model.GetAnnouncementItem",
+            "items": {
+              "format": "[]model.GetAnnouncementItem",
+              "items": {
+                "$ref": "#/components/schemas/p7-go-server.internal.model.GetAnnouncementItem"
+              },
+              "properties": {},
+              "type": "array"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.GetAnnouncementItem": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "type": {
+            "description": "announcement类型: 1:公告 2:帮助中心 3.首页弹出",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "language": {
+            "description": " 语言类型",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "title": {
+            "description": "标题",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "article": {
+            "description": "文章",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "indexImg": {
+            "description": "首页图",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "startTime": {
+            "description": "开始时间 毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "endTime": {
+            "description": "结束 毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "status": {
+            "description": "状态",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "description": "创建时间 毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "description": "更新时间 毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.article.v1.GetAnnouncemenDetailReq": {
+        "properties": {
+          "id": {
+            "description": "id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.article.v1.GetAnnouncemenDetailRes": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "type": {
+            "description": "announcement类型: 1:公告 2:帮助中心 3.首页弹出",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "language": {
+            "description": " 语言类型",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "title": {
+            "description": "标题",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "article": {
+            "description": "文章",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "indexImg": {
+            "description": "首页图",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "startTime": {
+            "description": "开始时间 毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "endTime": {
+            "description": "结束 毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "status": {
+            "description": "状态",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "description": "创建时间 毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "description": "更新时间 毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.GetNft721MiningRulesReq": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.GetNft721MiningRulesRes": {
+        "properties": {
+          "defines": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/p7-go-server.internal.model.NftSlotsDefine"
+              },
+              "format": "map[uint]*model.NftSlotsDefine",
+              "properties": {},
+              "type": "object"
+            },
+            "description": "规则",
+            "format": "map[uint]map[uint]*model.NftSlotsDefine",
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.NftSlotsDefine": {
+        "properties": {
+          "slotsProductId": {
+            "description": "插槽产品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "miningProductId": {
+            "description": "挖矿产出产品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "amountPerMinute": {
+            "description": "每分钟消耗的能量(放大1e4)",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "maximumAmount": {
+            "description": "可以安装最大能量数量(放大1e4)",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "initAmount": {
+            "description": "插槽初始值(放大1e7)",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "miningAmountPerMinute": {
+            "description": "挖矿每分钟产出(放大1e7)",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155MarketListReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号码，默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量，最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "isOfficial": {
+            "description": "是否官方(目前盲盒使用)",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "productId": {
+            "description": "产品id",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "required": ["productId"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155MarketListRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "[]order.Nft1155OrderItem",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.order.Nft1155OrderItem"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.order.Nft1155OrderItem": {
+        "properties": {
+          "id": {
+            "description": "主键id",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "sellerName": {
+            "description": "用户名称",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "stock": {
+            "description": "库存",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "totalQuantity": {
+            "description": "总出售",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "price": {
+            "description": "价格",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "title": {
+            "description": "标题",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "displayImage": {
+            "description": "展示",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "Status": {
+            "description": "状态: 1出售中, 2下架",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "isOfficialRelease": {
+            "description": "状态: 是否官方发售 0: 否 1:是",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "description": "创建时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721MarketListReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号码，默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量，最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "Keywords": {
+            "description": "搜索关键字",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "priceFlag": {
+            "description": "售价：1-最高，2-最低",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "isOfficialRelease": {
+            "description": "是否官方发售 0: 否 1:是",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "level": {
+            "description": "等级(多个用英文,拼接)",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "CreatedAtFlag": {
+            "description": "时间排序标识：1-正序，2-倒序",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721MarketListRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "[]order.Nft721MarketListOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.order.Nft721MarketListOutput"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.order.Nft721MarketListOutput": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "id": {
+            "description": "主键id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "isOfficialRelease": {
+            "description": "是否官方发售 0: 否 1:是",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "nftId": {
+            "description": "nftId",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "level": {
+            "description": "等级",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "price": {
+            "description": "价格",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "CreatedAt": {
+            "description": "创建时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.CheckVerifyCaptchaReq": {
+        "properties": {
+          "Dots": {
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "Key": {
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.CheckVerifyCaptchaRes": {
+        "properties": {
+          "VerifyCode": {
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetVerifyCaptchaReq": {
+        "properties": {
+          "Phone": {
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetVerifyCaptchaRes": {
+        "properties": {
+          "VerifyCaptchaKey": {
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "ImageBase64": {
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "ThumbBase64": {
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetVerificationCodeReq": {
+        "properties": {
+          "type": {
+            "description": "验证码类型",
+            "format": "consts.VerifyCodeType",
+            "properties": {},
+            "type": "integer"
+          },
+          "phone": {
+            "description": "手机号",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "captcha": {
+            "description": "验证码",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "captcha_id": {
+            "description": "验证码id",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "required": ["phone", "captcha", "captcha_id"],
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetVerificationCodeRes": {
+        "properties": {
+          "VerifyCode": {
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetSignInReq": {
+        "properties": {
+          "Session": {
+            "$ref": "#/components/schemas/github.com.gogf.gf.v2.os.gsession.Session"
+          },
+          "phone": {
+            "description": "手机号",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "code": {
+            "description": "验证码",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "password": {
+            "description": "密码",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "referralId": {
+            "description": "邀请人Id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "required": ["phone"],
+        "type": "object"
+      },
+      "github.com.gogf.gf.v2.os.gsession.Session": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetSignInRes": {
+        "properties": {
+          "ssid": {
+            "description": "ssid",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.UploadUserStepReq": {
+        "properties": {
+          "userId": {
+            "description": "用户id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "uploadTime": {
+            "description": "上传时间",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "setpCount": {
+            "description": "步数",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "signatureData": {
+            "description": "签名数据",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "required": ["uploadTime", "setpCount", "signatureData"],
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.UploadUserStepRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.AddMaterialReq": {
+        "properties": {
+          "id": {
+            "description": "nftId",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "amount": {
+            "description": "数量为0,将所有填满插槽",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.AddMaterialRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.GetUserEnergyPoolReq": {
+        "properties": {
+          "dayTime": {
+            "description": "当日0点时间戳",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.GetUserEnergyPoolRes": {
+        "properties": {
+          "id": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "userId": {
+            "description": "用户ID",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "dayTime": {
+            "description": "当日时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "accTotal": {
+            "description": "累计能量",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "usedAmount": {
+            "description": "已使用能量",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "usedPending": {
+            "description": "已使用待结算",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "lastSettlementTime": {
+            "description": "最后结算时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "expectedEndTime": {
+            "description": "预期结束时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "energyUpperLimit": {
+            "description": "能量上限",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "systemTime": {
+            "description": "系统时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.MiningAccountReq": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.MiningAccountRes": {
+        "properties": {
+          "list": {
+            "description": "List",
+            "format": "[]*game.GetMiningAccountOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.game.GetMiningAccountOutput"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.game.GetMiningAccountOutput": {
+        "properties": {
+          "id": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "balance": {
+            "description": "余额",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "pending": {
+            "description": "待结算",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.MiningAccountLogReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号,默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量,最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "LogType": {
+            "description": "日志类型 1:产出  2: 兑换材料",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "userId": {
+            "description": "用户id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.MiningAccountLogRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "List",
+            "format": "[]game.ListMiningAccountLogItemOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.game.ListMiningAccountLogItemOutput"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.game.ListMiningAccountLogItemOutput": {
+        "properties": {
+          "id": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "userId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "amount": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "logType": {
+            "description": "日志类型: 1.挖矿产出 2:兑换材料",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "产品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.MiningFragmentToNftReq": {
+        "properties": {
+          "amount": {
+            "description": "数量为0,将所有碎片转成nft",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "产品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.MiningFragmentToNftRes": {
+        "properties": {
+          "nftAmount": {
+            "description": "转成nft的数量",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.Nft721StartMiningReq": {
+        "properties": {
+          "id": {
+            "description": "nftId",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.Nft721StartMiningRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.Nft721StopMiningReq": {
+        "properties": {
+          "id": {
+            "description": "nftId",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.Nft721StopMiningRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.GetUserStepPoolReq": {
+        "properties": {
+          "dayTime": {
+            "description": "当日0点时间戳",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.GetUserStepPoolRes": {
+        "properties": {
+          "id": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "userId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "dayTime": {
+            "description": "当日时间毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "accStepCount": {
+            "description": "累计步数",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "accStepTime": {
+            "description": "累计走路时间",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "usedStepCount": {
+            "description": "已使用步数",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.ListUserStepPoolReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号,默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量,最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "userId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.ListUserStepPoolRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "[]game.ListGameUserStepPoolItemOutput",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.game.ListGameUserStepPoolItemOutput"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.game.ListGameUserStepPoolItemOutput": {
+        "properties": {
+          "id": {
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "userId": {
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "dayTime": {
+            "description": "当日时间毫秒",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "accStepCount": {
+            "description": "累计步数",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "accStepTime": {
+            "description": "累计走路时间",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "usedStepCount": {
+            "description": "已使用步数",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "updatedAt": {
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.StepToEnergyReq": {
+        "properties": {
+          "stepCount": {
+            "description": "转化步数,数量为0将能量槽填满",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.game.v1.StepToEnergyRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155OffSellOrderReq": {
+        "properties": {
+          "orderId": {
+            "description": "订单id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "required": ["orderId"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155OffSellOrderRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.PayOrderReq": {
+        "properties": {
+          "orderId": {
+            "description": "订单id",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "orderType": {
+            "description": "订单类型：1-nft1155, 2-nft721",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "orderModeId": {
+            "description": "支付类型 易宝yeepay",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "returnUrl": {
+            "description": "成功返回页",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "required": ["orderId", "orderType"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.PayOrderRes": {
+        "properties": {
+          "orderModeId": {
+            "description": "支付类型 易宝yeepay",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "code": {
+            "description": "code",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "message": {
+            "description": "message",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "UniqueOrderNo": {
+            "description": "易宝收款订单号",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "cashierUrl": {
+            "description": "收银台链接",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155BuyOrderReq": {
+        "properties": {
+          "orderId": {
+            "description": "出售订单id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "quantity": {
+            "description": "数量",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "describe": {
+            "description": "备注描述",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "required": ["orderId", "productId", "quantity"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155BuyOrderRes": {
+        "properties": {
+          "id": {
+            "description": "主键id",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "orderNo": {
+            "description": "订单号",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "status": {
+            "description": "订单状态：1-支付中，2-支付完成，3已取消",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "description": "下单时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "quantity": {
+            "description": "数量",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "totalAmount": {
+            "description": "总价",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "describe": {
+            "description": "描述",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "expiredTime": {
+            "description": "到期时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155CancelBuyOrderReq": {
+        "properties": {
+          "orderId": {
+            "description": "订单id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "required": ["orderId"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155CancelBuyOrderRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721CancelBuyOrderReq": {
+        "properties": {
+          "orderId": {
+            "description": "订单id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "required": ["orderId"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721CancelBuyOrderRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.GetOrderDetailReq": {
+        "properties": {
+          "orderId": {
+            "description": "订单id",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "orderType": {
+            "description": "订单类型：1-购买订单，2-出售订单",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "required": ["orderId", "orderType"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.GetOrderDetailRes": {
+        "properties": {
+          "id": {
+            "description": "主键id",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "orderNo": {
+            "description": "订单号",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "status": {
+            "description": "订单状态：1-支付中，2-支付完成，3已取消",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "description": "下单时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "quantity": {
+            "description": "数量",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "totalAmount": {
+            "description": "总价",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "describe": {
+            "description": "描述",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "expiredTime": {
+            "description": "到期时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.GetOrderListReq": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "description": "分页号码，默认1",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "size": {
+            "default": 20,
+            "description": "分页数量，最大20",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "orderType": {
+            "description": "订单类型：1-购买订单，2-出售订单",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "status": {
+            "description": "状态：1-支付中，2-支付完成，3已取消",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "required": ["orderType"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.GetOrderListRes": {
+        "properties": {
+          "total": {
+            "description": "总数",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "list": {
+            "description": "列表",
+            "format": "[]order.GetOrderItem",
+            "items": {
+              "$ref": "#/components/schemas/p7-go-server.internal.model.order.GetOrderItem"
+            },
+            "properties": {},
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.internal.model.order.GetOrderItem": {
+        "properties": {
+          "id": {
+            "description": "主键id",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "orderNo": {
+            "description": "订单号",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "status": {
+            "description": "订单状态：1-支付中，2-支付完成，3已取消",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "description": "下单时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "quantity": {
+            "description": "数量",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "totalAmount": {
+            "description": "总价",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "describe": {
+            "description": "描述",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "expiredTime": {
+            "description": "到期时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721OffSellOrderReq": {
+        "properties": {
+          "orderId": {
+            "description": "订单id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "required": ["orderId"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721OffSellOrderRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721SellOrderReq": {
+        "properties": {
+          "ownerId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "quantity": {
+            "description": "数量",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "price": {
+            "description": "价格",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "required": ["productId", "quantity"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721SellOrderRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721BuyOrderReq": {
+        "properties": {
+          "orderId": {
+            "description": "出售订单id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "quantity": {
+            "description": "数量",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "describe": {
+            "description": "备注描述",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "required": ["orderId", "productId"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft721BuyOrderRes": {
+        "properties": {
+          "id": {
+            "description": "主键id",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "orderNo": {
+            "description": "订单号",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "status": {
+            "description": "订单状态：1-支付中，2-支付完成，3已取消",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "createdAt": {
+            "description": "下单时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          },
+          "quantity": {
+            "description": "数量",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "totalAmount": {
+            "description": "总价",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          },
+          "describe": {
+            "description": "描述",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "expiredTime": {
+            "description": "到期时间",
+            "format": "int64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155SellOrderReq": {
+        "properties": {
+          "ownerId": {
+            "format": "*uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "productId": {
+            "description": "商品id",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "quantity": {
+            "description": "数量",
+            "format": "uint",
+            "properties": {},
+            "type": "integer"
+          },
+          "price": {
+            "description": "价格",
+            "format": "uint64",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "required": ["productId", "quantity"],
+        "type": "object"
+      },
+      "p7-go-server.api.order.v1.Nft1155SellOrderRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetReferralInfoReq": {
+        "properties": {
+          "Id": {
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetReferralInfoRes": {
+        "properties": {
+          "ReferralCode": {
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetUserInfoReq": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetUserInfoRes": {
+        "properties": {
+          "id": {
+            "description": "id",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "referralId": {
+            "description": "id",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "level": {
+            "description": "等级",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "authLv": {
+            "description": "实名等级",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "phone": {
+            "description": "手机号",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "avatar": {
+            "description": "头像",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "email": {
+            "description": "邮箱",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "nickname": {
+            "description": "昵称",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "introduction": {
+            "description": "简介",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetWalletReq": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetWalletRes": {
+        "properties": {
+          "status": {
+            "description": "开通状态:true-开通,false-未开通",
+            "format": "bool",
+            "properties": {},
+            "type": "boolean"
+          },
+          "balanceUrl": {
+            "description": "访问地址",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.ModifyPwdReq": {
+        "properties": {
+          "Id": {
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "origPassword": {
+            "description": "原密码",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "newPassword": {
+            "description": "新密码",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "repPassword": {
+            "description": "重复新密码",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.ModifyPwdRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetSignOutReq": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.GetSignOutRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.UpdateUserInfoReq": {
+        "properties": {
+          "id": {
+            "description": "id",
+            "format": "int",
+            "properties": {},
+            "type": "integer"
+          },
+          "phone": {
+            "description": "手机号",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "avatar": {
+            "description": "头像",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "passwd": {
+            "description": "密码",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "email": {
+            "description": "邮箱",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "nickname": {
+            "description": "昵称",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "introduction": {
+            "description": "简介",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "required": ["id"],
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.UpdateUserInfoRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.YeepayLoginReq": {
+        "properties": {
+          "userId": {
+            "description": "用户ID",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "returnUrl": {
+            "description": "钱包首页返回商户页面地址",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.YeepayLoginRes": {
+        "properties": {
+          "code": {
+            "description": "code",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "message": {
+            "description": "message",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "token": {
+            "description": "token",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "url": {
+            "description": "url 登录或者注册的url",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.YeepayRegisterReq": {
+        "properties": {
+          "userId": {
+            "description": "用户ID",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "name": {
+            "description": "用户姓名",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "certificateType": {
+            "description": "证件类型: 身份证IDENTITY_CARD, 手机:PHONE",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "certificateNo": {
+            "description": "身份证号码(身份证号码证件号码和手机号二选一必填）",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "mobile": {
+            "description": "手机号码(证件号码和手机号二选一必填）",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "returnUrl": {
+            "description": "钱包首页返回商户页面地址",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.user.v1.YeepayRegisterRes": {
+        "properties": {
+          "code": {
+            "description": "code",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "message": {
+            "description": "message",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "token": {
+            "description": "token",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "url": {
+            "description": "url 登录或者注册的url",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.pay.v1.ReceivePayCsNotifyReq": {
+        "properties": {
+          "customerIdentification": {
+            "description": "商户应用标识",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "response": {
+            "description": "请求内容",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.pay.v1.ReceivePayCsNotifyRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.pay.v1.ReceivePayNotifyReq": {
+        "properties": {
+          "customerIdentification": {
+            "description": "商户应用标识",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "response": {
+            "description": "请求内容",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.pay.v1.ReceivePayNotifyRes": {
+        "properties": {},
+        "type": "object"
+      },
+      "p7-go-server.api.pay.v1.ReceiveRegisterNotifyReq": {
+        "properties": {
+          "customerIdentification": {
+            "description": "商户应用标识",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          },
+          "response": {
+            "description": "请求内容",
+            "format": "string",
+            "properties": {},
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "p7-go-server.api.pay.v1.ReceiveRegisterNotifyRes": {
+        "properties": {},
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "paths": {
+    "/api/nft/blindBoxRules": {
+      "get": {
+        "parameters": [
+          {
+            "description": "nft产品ID",
+            "in": "query",
+            "name": "productId",
+            "required": true,
+            "schema": {
+              "description": "nft产品ID",
+              "format": "*int",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.nft.v1.ListBlindBoxRulesRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取开盲盒规则",
+        "tags": ["nft"]
+      },
+      "summary": "获取开盲盒规则"
+    },
+    "/api/nft/log1155": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号,默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号,默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量,最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量,最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fromId",
+            "schema": {
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "toId",
+            "schema": {
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "prodcutId",
+            "schema": {
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "0用户转账  101开盲盒销毁 102升级鞋子销毁 103游戏销毁 104 卖出 210mint 211空投 201开盲盒产出 202升级鞋子产出 203游戏产出 204买入  205销售单撤回",
+            "in": "query",
+            "name": "orderType",
+            "schema": {
+              "description": "0用户转账  101开盲盒销毁 102升级鞋子销毁 103游戏销毁 104 卖出 210mint 211空投 201开盲盒产出 202升级鞋子产出 203游戏产出 204买入  205销售单撤回",
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.nft.v1.Nft1155LogListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取nft1155转账日志",
+        "tags": ["nft"]
+      },
+      "summary": "获取nft1155转账日志"
+    },
+    "/api/nft/log721": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号,默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号,默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量,最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量,最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fromId",
+            "schema": {
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "toId",
+            "schema": {
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nftId",
+            "schema": {
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "prodcutId",
+            "schema": {
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "0用户转账  101开盲盒销毁 102升级鞋子销毁 103游戏销毁 104 卖出 210mint 211空投 201开盲盒产出 202升级鞋子产出 203游戏产出 204买入  205销售单撤回",
+            "in": "query",
+            "name": "orderType",
+            "schema": {
+              "description": "0用户转账  101开盲盒销毁 102升级鞋子销毁 103游戏销毁 104 卖出 210mint 211空投 201开盲盒产出 202升级鞋子产出 203游戏产出 204买入  205销售单撤回",
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.nft.v1.Nft721LogListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取nft721转账日志",
+        "tags": ["nft"]
+      },
+      "summary": "获取nft721转账日志"
+    },
+    "/api/nft/nft1155": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号,默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号,默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量,最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量,最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ownerId",
+            "schema": {
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "产品id",
+            "in": "query",
+            "name": "productId",
+            "schema": {
+              "description": "产品id",
+              "format": "*uint64",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "产品code",
+            "in": "query",
+            "name": "productCode",
+            "schema": {
+              "description": "产品code",
+              "format": "*string",
+              "properties": {},
+              "type": "string"
+            }
+          },
+          {
+            "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+            "in": "query",
+            "name": "productType",
+            "schema": {
+              "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+              "format": "*int",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.nft.v1.Nft1155ListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取nft1155列表",
+        "tags": ["nft"]
+      },
+      "summary": "获取nft1155列表"
+    },
+    "/api/nft/nft721": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号,默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号,默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量,最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量,最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ownerId",
+            "schema": {
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "产品id",
+            "in": "query",
+            "name": "productId",
+            "schema": {
+              "description": "产品id",
+              "format": "*uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "产品code",
+            "in": "query",
+            "name": "productCode",
+            "schema": {
+              "description": "产品code",
+              "format": "*string",
+              "properties": {},
+              "type": "string"
+            }
+          },
+          {
+            "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+            "in": "query",
+            "name": "productType",
+            "schema": {
+              "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+              "format": "*int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "类型: 1.正常 2.出售中 3.挖矿",
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "description": "类型: 1.正常 2.出售中 3.挖矿",
+              "format": "*int",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.nft.v1.Nft721ListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取nft721列表",
+        "tags": ["nft"]
+      },
+      "summary": "获取nft721列表"
+    },
+    "/api/nft/nft721/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "id",
+              "format": "uint",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.nft.v1.Nft721DetailRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取nft详情",
+        "tags": ["nft"]
+      },
+      "summary": "获取nft详情"
+    },
+    "/api/nft/openBlindBox": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.nft.v1.OpenBlindBoxReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.nft.v1.OpenBlindBoxRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "开启盲盒",
+        "tags": ["nft"]
+      },
+      "summary": "开启盲盒"
+    },
+    "/api/nft/product": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号,默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号,默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量,最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量,最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+            "in": "query",
+            "name": "productType",
+            "schema": {
+              "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+              "format": "*int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "产品code",
+            "in": "query",
+            "name": "productCode",
+            "schema": {
+              "description": "产品code",
+              "format": "*string",
+              "properties": {},
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.nft.v1.NftProductListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取nft产品信息",
+        "tags": ["nft"]
+      },
+      "summary": "获取nft产品信息"
+    },
+    "/api/noauth/article/announcemen": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号,默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号,默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量,最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量,最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "announcement类型: 1:公告 2:帮助中心 3.首页弹出",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "description": "announcement类型: 1:公告 2:帮助中心 3.首页弹出",
+              "format": "*int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "语言",
+            "in": "query",
+            "name": "language",
+            "schema": {
+              "description": "语言",
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.article.v1.GetAnnouncemenListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取公告",
+        "tags": ["文章"]
+      },
+      "summary": "获取公告"
+    },
+    "/api/noauth/article/announcemen/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "description": "id",
+              "format": "uint",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.article.v1.GetAnnouncemenDetailRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取公告详情",
+        "tags": ["文章"]
+      },
+      "summary": "获取公告详情"
+    },
+    "/api/noauth/nft/product": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号,默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号,默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量,最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量,最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+            "in": "query",
+            "name": "productType",
+            "schema": {
+              "description": "类型: 10 NFT  20 盲盒 30 材料 40 皮肤",
+              "format": "*int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "产品code",
+            "in": "query",
+            "name": "productCode",
+            "schema": {
+              "description": "产品code",
+              "format": "*string",
+              "properties": {},
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.nft.v1.NftProductListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取nft产品信息",
+        "tags": ["nft"]
+      },
+      "summary": "获取nft产品信息"
+    },
+    "/api/noauth/v1/game/mining/nft721MiningRules": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.GetNft721MiningRulesRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取鞋子挖矿规则",
+        "tags": ["游戏"]
+      },
+      "summary": "获取鞋子挖矿规则"
+    },
+    "/api/noauth/v1/order/getMarketList": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号码，默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号码，默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量，最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量，最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "是否官方(目前盲盒使用)",
+            "in": "query",
+            "name": "isOfficial",
+            "schema": {
+              "description": "是否官方(目前盲盒使用)",
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          },
+          {
+            "description": "产品id",
+            "in": "query",
+            "name": "productId",
+            "required": true,
+            "schema": {
+              "description": "产品id",
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft1155MarketListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取集市列表",
+        "tags": ["集市"]
+      },
+      "summary": "获取集市列表"
+    },
+    "/api/noauth/v1/order/getNft721MarketList": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号码，默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号码，默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量，最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量，最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "商品id",
+            "in": "query",
+            "name": "productId",
+            "schema": {
+              "description": "商品id",
+              "format": "uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "搜索关键字",
+            "in": "query",
+            "name": "Keywords",
+            "schema": {
+              "description": "搜索关键字",
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          },
+          {
+            "description": "售价：1-最高，2-最低",
+            "in": "query",
+            "name": "priceFlag",
+            "schema": {
+              "description": "售价：1-最高，2-最低",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "是否官方发售 0: 否 1:是",
+            "in": "query",
+            "name": "isOfficialRelease",
+            "schema": {
+              "description": "是否官方发售 0: 否 1:是",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "等级(多个用英文,拼接)",
+            "in": "query",
+            "name": "level",
+            "schema": {
+              "description": "等级(多个用英文,拼接)",
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          },
+          {
+            "description": "时间排序标识：1-正序，2-倒序",
+            "in": "query",
+            "name": "CreatedAtFlag",
+            "schema": {
+              "description": "时间排序标识：1-正序，2-倒序",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft721MarketListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取集市列表",
+        "tags": ["集市"]
+      },
+      "summary": "获取集市列表"
+    },
+    "/api/noauth/v1/user/checkVerifyCaptcha": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Dots",
+            "schema": {
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "Key",
+            "schema": {
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.CheckVerifyCaptchaRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "验证图形验证码",
+        "tags": ["用户"]
+      },
+      "summary": "验证图形验证码"
+    },
+    "/api/noauth/v1/user/getVerifyCaptcha": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Phone",
+            "schema": {
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.GetVerifyCaptchaRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取图形验证码",
+        "tags": ["用户"]
+      },
+      "summary": "获取图形验证码"
+    },
+    "/api/noauth/v1/user/getVerifyCode": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.user.v1.GetVerificationCodeReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.GetVerificationCodeRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "根据手机号获取验证码",
+        "tags": ["用户"]
+      },
+      "summary": "根据手机号获取验证码"
+    },
+    "/api/noauth/v1/user/signIn": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.user.v1.GetSignInReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.GetSignInRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "用户手机号登录",
+        "tags": ["用户"]
+      },
+      "summary": "用户手机号登录"
+    },
+    "/api/sing/v1/game/sport/uploadUserStep": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.game.v1.UploadUserStepReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.UploadUserStepRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "上传用户步数",
+        "tags": ["游戏"]
+      },
+      "summary": "上传用户步数"
+    },
+    "/api/v1/game/mining/addMaterial": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.game.v1.AddMaterialReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.AddMaterialRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "添加材料",
+        "tags": ["游戏"]
+      },
+      "summary": "添加材料"
+    },
+    "/api/v1/game/mining/getUserEnergyPoolInfo": {
+      "get": {
+        "parameters": [
+          {
+            "description": "当日0点时间戳",
+            "in": "query",
+            "name": "dayTime",
+            "schema": {
+              "description": "当日0点时间戳",
+              "format": "uint",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.GetUserEnergyPoolRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取用户当日能量信息",
+        "tags": ["游戏"]
+      },
+      "summary": "获取用户当日能量信息"
+    },
+    "/api/v1/game/mining/miningAccount": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.MiningAccountRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取挖矿账户",
+        "tags": ["游戏"]
+      },
+      "summary": "获取挖矿账户"
+    },
+    "/api/v1/game/mining/miningAccountLog": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号,默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号,默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量,最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量,最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "日志类型 1:产出  2: 兑换材料",
+            "in": "query",
+            "name": "LogType",
+            "schema": {
+              "description": "日志类型 1:产出  2: 兑换材料",
+              "format": "int64",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "用户id",
+            "in": "query",
+            "name": "userId",
+            "schema": {
+              "description": "用户id",
+              "format": "uint",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "productId",
+            "schema": {
+              "format": "uint",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.MiningAccountLogRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取挖矿账户日志",
+        "tags": ["游戏"]
+      },
+      "summary": "获取挖矿账户日志"
+    },
+    "/api/v1/game/mining/miningFragmentToNft": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.game.v1.MiningFragmentToNftReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.MiningFragmentToNftRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "碎片转nft",
+        "tags": ["游戏"]
+      },
+      "summary": "碎片转nft"
+    },
+    "/api/v1/game/mining/startMining": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.game.v1.Nft721StartMiningReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.Nft721StartMiningRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "鞋子添加到矿池",
+        "tags": ["游戏"]
+      },
+      "summary": "鞋子添加到矿池"
+    },
+    "/api/v1/game/mining/stopMining": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.game.v1.Nft721StopMiningReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.Nft721StopMiningRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "鞋子移除矿池",
+        "tags": ["游戏"]
+      },
+      "summary": "鞋子移除矿池"
+    },
+    "/api/v1/game/sport/getUserStepPoolInfo": {
+      "get": {
+        "parameters": [
+          {
+            "description": "当日0点时间戳",
+            "in": "query",
+            "name": "dayTime",
+            "schema": {
+              "description": "当日0点时间戳",
+              "format": "uint",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.GetUserStepPoolRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取用户当日步数信息",
+        "tags": ["游戏"]
+      },
+      "summary": "获取用户当日步数信息"
+    },
+    "/api/v1/game/sport/listUserStepPoolInfo": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号,默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号,默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量,最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量,最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "userId",
+            "schema": {
+              "format": "uint",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.ListUserStepPoolRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取用户步数历史数据",
+        "tags": ["游戏"]
+      },
+      "summary": "获取用户步数历史数据"
+    },
+    "/api/v1/game/sport/stepToEnergy": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.game.v1.StepToEnergyReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.game.v1.StepToEnergyRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "用户步数转能量",
+        "tags": ["游戏"]
+      },
+      "summary": "用户步数转能量"
+    },
+    "/api/v1/order/OffSellOrder": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft1155OffSellOrderReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft1155OffSellOrderRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "下架nft1155",
+        "tags": ["订单"]
+      },
+      "summary": "下架nft1155"
+    },
+    "/api/v1/order/PayOrder": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.order.v1.PayOrderReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.PayOrderRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "支付订单",
+        "tags": ["订单"]
+      },
+      "summary": "支付订单"
+    },
+    "/api/v1/order/buyOrder": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft1155BuyOrderReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft1155BuyOrderRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "创建nft1155订单",
+        "tags": ["订单"]
+      },
+      "summary": "创建nft1155订单"
+    },
+    "/api/v1/order/cancelBuyOrder": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft1155CancelBuyOrderReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft1155CancelBuyOrderRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "取消购买nft1155订单",
+        "tags": ["订单"]
+      },
+      "summary": "取消购买nft1155订单"
+    },
+    "/api/v1/order/cancelNft721BuyOrder": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft721CancelBuyOrderReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft721CancelBuyOrderRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "取消购买nft721订单",
+        "tags": ["订单"]
+      },
+      "summary": "取消购买nft721订单"
+    },
+    "/api/v1/order/getOrderDetail": {
+      "get": {
+        "parameters": [
+          {
+            "description": "订单id",
+            "in": "query",
+            "name": "orderId",
+            "required": true,
+            "schema": {
+              "description": "订单id",
+              "format": "uint64",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "订单类型：1-购买订单，2-出售订单",
+            "in": "query",
+            "name": "orderType",
+            "required": true,
+            "schema": {
+              "description": "订单类型：1-购买订单，2-出售订单",
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.GetOrderDetailRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取订单详情",
+        "tags": ["订单"]
+      },
+      "summary": "获取订单详情"
+    },
+    "/api/v1/order/getOrderList": {
+      "get": {
+        "parameters": [
+          {
+            "description": "分页号码，默认1",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "description": "分页号码，默认1",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "分页数量，最大20",
+            "in": "query",
+            "name": "size",
+            "schema": {
+              "default": 20,
+              "description": "分页数量，最大20",
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          },
+          {
+            "description": "订单类型：1-购买订单，2-出售订单",
+            "in": "query",
+            "name": "orderType",
+            "required": true,
+            "schema": {
+              "description": "订单类型：1-购买订单，2-出售订单",
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          },
+          {
+            "description": "状态：1-支付中，2-支付完成，3已取消",
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "description": "状态：1-支付中，2-支付完成，3已取消",
+              "format": "string",
+              "properties": {},
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.GetOrderListRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取订单列表（包含购买订单、出售订单）",
+        "tags": ["订单"]
+      },
+      "summary": "获取订单列表（包含购买订单、出售订单）"
+    },
+    "/api/v1/order/nft721OffSellOrder": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft721OffSellOrderReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft721OffSellOrderRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "下架nft721",
+        "tags": ["订单"]
+      },
+      "summary": "下架nft721"
+    },
+    "/api/v1/order/nft721SellOrder": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft721SellOrderReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft721SellOrderRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "出售nft721",
+        "tags": ["订单"]
+      },
+      "summary": "出售nft721"
+    },
+    "/api/v1/order/nft721buyOrder": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft721BuyOrderReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft721BuyOrderRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "创建nft721订单",
+        "tags": ["订单"]
+      },
+      "summary": "创建nft721订单"
+    },
+    "/api/v1/order/sellOrder": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft1155SellOrderReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.order.v1.Nft1155SellOrderRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "出售nft1155",
+        "tags": ["订单"]
+      },
+      "summary": "出售nft1155"
+    },
+    "/api/v1/user/getReferralInfo": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "schema": {
+              "format": "int",
+              "properties": {},
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.GetReferralInfoRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取邀请码",
+        "tags": ["用户"]
+      },
+      "summary": "获取邀请码"
+    },
+    "/api/v1/user/getUserInfo": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.GetUserInfoRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "获取用户信息",
+        "tags": ["用户"]
+      },
+      "summary": "获取用户信息"
+    },
+    "/api/v1/user/getWalletInfo": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.GetWalletRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "我的钱包",
+        "tags": ["用户"]
+      },
+      "summary": "我的钱包"
+    },
+    "/api/v1/user/modifyPwd": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.user.v1.ModifyPwdReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.ModifyPwdRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "设置或修改密码",
+        "tags": ["用户"]
+      },
+      "summary": "设置或修改密码"
+    },
+    "/api/v1/user/signOut": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.GetSignOutRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "用户手机号退出登录",
+        "tags": ["用户"]
+      },
+      "summary": "用户手机号退出登录"
+    },
+    "/api/v1/user/updateUser": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.user.v1.UpdateUserInfoReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.UpdateUserInfoRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "修改用户信息",
+        "tags": ["用户"]
+      },
+      "summary": "修改用户信息"
+    },
+    "/api/v1/user/yeepay/login": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.user.v1.YeepayLoginReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.YeepayLoginRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "易宝账号登录",
+        "tags": ["用户"]
+      },
+      "summary": "易宝账号登录"
+    },
+    "/api/v1/user/yeepay/register": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.user.v1.YeepayRegisterReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.user.v1.YeepayRegisterRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "易宝账号注册",
+        "tags": ["用户"]
+      },
+      "summary": "易宝账号注册"
+    },
+    "/api/yeepay/pay_csnotify": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.pay.v1.ReceivePayCsNotifyReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.pay.v1.ReceivePayCsNotifyRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "接收易宝清账后通知",
+        "tags": ["易宝支付"]
+      },
+      "summary": "接收易宝清账后通知"
+    },
+    "/api/yeepay/pay_notify": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.pay.v1.ReceivePayNotifyReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.pay.v1.ReceivePayNotifyRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "接收易宝支付成功后通知",
+        "tags": ["易宝支付"]
+      },
+      "summary": "接收易宝支付成功后通知"
+    },
+    "/api/yeepay/register_notify": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/p7-go-server.api.pay.v1.ReceiveRegisterNotifyReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/p7-go-server.api.pay.v1.ReceiveRegisterNotifyRes"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "接收易宝注册回调",
+        "tags": ["易宝支付"]
+      },
+      "summary": "接收易宝注册回调"
+    }
+  }
+}

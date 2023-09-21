@@ -1,0 +1,41 @@
+{
+  "name": "swagger-to-apis",
+  "version": "1.0.2",
+  "description": "Swagger transform APIs",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "lint": "eslint --fix src --ext .ts --max-warnings=0",
+    "prettier": "prettier --write \"src/**/*.ts\"",
+    "build": "npm run lint && npm run prettier && tsc --build",
+    "prepare": "husky install && npm run build",
+    "start": "ts-node src/index.ts",
+    "prepublishOnly": "npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "keywords": [
+    "swagger-to-apis",
+    "swagger",
+    "axios"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^20.4.8",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "eslint": "^8.46.0",
+    "husky": "^8.0.0",
+    "prettier": "^3.0.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "prettier": "^3.0.1"
+  }
+}
