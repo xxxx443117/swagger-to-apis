@@ -1,6 +1,6 @@
 {
   "name": "swagger-to-apis",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Swagger transform APIs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,7 +8,8 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "lint": "eslint --fix src --ext .ts --max-warnings=0",
     "prettier": "prettier --write \"src/**/*.ts\"",
-    "build": "npm run lint && npm run prettier && tsc --build",
+    "build": "npm run lint && npm run prettier && tsc --build && npm run cp",
+    "cp": "ts-node cpTem.ts",
     "prepare": "husky install && npm run build",
     "start": "ts-node src/index.ts",
     "prepublishOnly": "npm run lint",
@@ -36,6 +37,7 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
+    "fs": "^0.0.1-security",
     "prettier": "^3.0.1"
   }
 }
