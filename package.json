@@ -1,6 +1,6 @@
 {
   "name": "swagger-to-apis",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Swagger transform APIs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

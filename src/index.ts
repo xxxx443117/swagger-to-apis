@@ -72,7 +72,7 @@ const SwaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
     body: requestRes,
   });
   const formatSwagger = await prettier.format(swaggerRes, prettierConfig);
-  saveTem(`${reslib}/swagger/swagger.api.ts`, formatSwagger);
+  saveTem(`${reslib}/apis/swagger/swagger.api.ts`, formatSwagger);
 
   const typeTem = await createTem('./template/tag/type.md');
 
@@ -91,7 +91,7 @@ const SwaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
 
   const formatType = await prettier.format(typeRes, prettierConfig);
 
-  saveTem(`${reslib}/swagger/swagger.d.ts`, formatType);
+  saveTem(`${reslib}/apis/swagger/swagger.d.ts`, formatType);
 
   const apiTem = await createTem('./template/api.api.md');
   const apiRes = apiTem.replace({
@@ -99,22 +99,22 @@ const SwaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
     body: '',
   });
   const formatApi = await prettier.format(apiRes, prettierConfig);
-  saveTem(`${reslib}/apis/api.api.ts`, formatApi);
+  saveTem(`${reslib}/apis/api.api.ts`, formatApi, { replace: false });
 
   const apiTypeTem = await createTem('./template/api.d.ts.md');
-  saveTem(`${reslib}/apis/api.d.ts`, apiTypeTem.value);
+  saveTem(`${reslib}/apis/api.d.ts`, apiTypeTem.value, { replace: false });
 
   const apiHttpTem = await createTem('./template/http.ts.md');
-  saveTem(`${reslib}/apis/http.ts`, apiHttpTem.value);
+  saveTem(`${reslib}/apis/http.ts`, apiHttpTem.value, { replace: false });
 
   const apiIndexTem = await createTem('./template/index.ts.md');
-  saveTem(`${reslib}/apis/index.ts`, apiIndexTem.value);
+  saveTem(`${reslib}/apis/index.ts`, apiIndexTem.value, { replace: false });
 
   const apiTypesTem = await createTem('./template/type.ts.md');
-  saveTem(`${reslib}/apis/type.ts`, apiTypesTem.value);
+  saveTem(`${reslib}/apis/type.ts`, apiTypesTem.value, { replace: false });
 
   const apiUtilsTem = await createTem('./template/util.ts.md');
-  saveTem(`${reslib}/apis/util.ts`, apiUtilsTem.value);
+  saveTem(`${reslib}/apis/util.ts`, apiUtilsTem.value, { replace: false });
 
   const date = Date();
   console.log('成功啦 !!!               ', date.toLocaleLowerCase());

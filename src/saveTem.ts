@@ -13,11 +13,11 @@ export const saveTem = async (
     replace: true,
     ...(_option || {}),
   };
-  const fsPath = path.resolve(__dirname, _path);
+  const fsPath = path.relative('.', _path);
 
   const parsedPath = path.parse(fsPath);
   if (!fs.existsSync(parsedPath.dir)) {
-    fs.mkdirSync(parsedPath.dir);
+    fs.mkdirSync(parsedPath.dir, { recursive: true });
   }
   if (!option.replace && fs.existsSync(fsPath)) {
     console.log(`file i exists: ${_path}`);
