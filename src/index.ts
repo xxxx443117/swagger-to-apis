@@ -122,4 +122,4 @@ const SwaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
   // api.api.md;
 };
 
-export default SwaggerToApis;
+export { SwaggerToApis };

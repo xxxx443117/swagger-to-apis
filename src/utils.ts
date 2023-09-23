@@ -82,7 +82,13 @@ export const parametersToTypeofByParameter = (prop?: PropertiesItem) => {
     }
     return `${parametersToTypeof(item.type)}[]`;
   }
-  if (type === 'object') return 'Record<string, unknown>';
+  if (type === 'object') {
+    if (prop?.additionalProperties?.$ref) {
+      return refToInterface(prop?.additionalProperties?.$ref);
+    }
+    // if ()
+    return 'Record<string, unknown>';
+  }
   if (baseType.includes(type)) return type;
   return 'unknown';
 };

@@ -16,6 +16,9 @@ export interface PropertiesItem {
   default?: unknown;
   items?: InnerItems;
   $ref?: string;
+  additionalProperties?: {
+    $ref: string;
+  };
   // in?: "path";
   // items?: {
   //   $ref: string;
