@@ -30,7 +30,7 @@ interface Options {
   reslib?: string;
 }
 
-const SwaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
+export const swaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
   let data: Data = null;
   if (apiUrl) {
     // @ts-ignore
@@ -121,5 +121,3 @@ const SwaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
   console.log('----------------分割线--------------');
   // api.api.md;
 };
-
-export { SwaggerToApis };
