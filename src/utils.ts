@@ -84,7 +84,9 @@ export const parametersToTypeofByParameter = (prop?: PropertiesItem) => {
   }
   if (type === 'object') {
     if (prop?.additionalProperties?.$ref) {
-      return refToInterface(prop?.additionalProperties?.$ref);
+      return `Record<string, ${
+        refToInterface(prop?.additionalProperties?.$ref) || 'unknown'
+      }>`;
     }
     // if ()
     return 'Record<string, unknown>';
