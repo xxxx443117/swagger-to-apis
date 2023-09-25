@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "type": "commonjs",
+  "repository": "https://github.com/xxxx443117/swagger-to-apis",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "eslint": "eslint --fix src --ext .ts --max-warnings=0",
