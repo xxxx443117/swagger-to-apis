@@ -19,7 +19,7 @@ $ yarn add swagger-to-apis
 ## Example
 
 ```ts
-import swaggerToApi from "swagger-to-apis";
+import SwaggerToApi from "swagger-to-apis";
 ```
 or
 ```ts
@@ -36,7 +36,7 @@ SwaggerToApi.swaggerToApis({
 
 ### For local json
 ```ts
-swaggerToApi({
+SwaggerToApi.swaggerToApis({
   assets: "./local/api.json", // local OpenApi json
   reslib: "./src", // out lib dir
 });
