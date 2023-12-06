@@ -14,6 +14,7 @@
     "cp": "ts-node cpTem.ts",
     "prepare": "husky install && npm run build",
     "start": "ts-node src/index.ts",
+    "test:start": "ts-node test/index.ts",
     "prepublishOnly": "npm run eslint",
     "preversion": "npm run eslint",
     "version": "npm run format && git add -A src",

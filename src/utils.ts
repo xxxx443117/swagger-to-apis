@@ -216,7 +216,10 @@ export const parseSchema = (key: string, schema: SchemasItem) => {
       parameter.description ? `// ${parameter.description}` : ''
     }\n `;
   });
-
+  if (schema.type === 'array') {
+    return `type ${transferSchemaToType(key).replace(/-/g, '_')} = ${parametersToTypeofByParameter(schema)}
+  `;
+  }
   return `
     interface ${transferSchemaToType(key).replace(/-/g, '_')} {
       ${paramsType}

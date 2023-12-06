@@ -81,6 +81,7 @@ export const swaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
   Object.keys(schemas).forEach((key) => {
     const ele = schemas[key];
     const resType = parseSchema(key, ele);
+
     schemaRes += resType;
   });
 
