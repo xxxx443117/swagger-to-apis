@@ -21,10 +21,14 @@ $ yarn add swagger-to-apis
 ### For api url
 ```ts
 import swaggerToApi from "swagger-to-apis";
+```
+or
+```ts
+import * as SwaggerToApi from 'swagger-to-apis';
 
-swaggerToApi({
+SwaggerToApi.swaggerToApis({
   apiUrl: "https://openapi.example.com/api.json", // OpenApi url
-  reslib: "./apis", // out lib dir
+  reslib: "./src/", // out lib dir
 });
 
 ```
@@ -32,10 +36,14 @@ swaggerToApi({
 ### For local json
 ```ts
 import swaggerToApi from "swagger-to-apis";
+```
+or
+```ts
+import * as SwaggerToApi from 'swagger-to-apis';
 
 swaggerToApi({
   assets: "./local/api.json", // local OpenApi json
-  reslib: "./apis", // out lib dir
+  reslib: "./src", // out lib dir
 });
 
 ```
