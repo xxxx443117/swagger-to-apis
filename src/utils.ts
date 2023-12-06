@@ -217,7 +217,10 @@ export const parseSchema = (key: string, schema: SchemasItem) => {
     }\n `;
   });
   if (schema.type === 'array') {
-    return `type ${transferSchemaToType(key).replace(/-/g, '_')} = ${parametersToTypeofByParameter(schema)}
+    return `type ${transferSchemaToType(key).replace(
+      /-/g,
+      '_',
+    )} = ${parametersToTypeofByParameter(schema)}
   `;
   }
   return `

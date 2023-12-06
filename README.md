@@ -7,13 +7,13 @@
 Using npm:
 
 ```bash
-$ npm install axios
+$ npm install swagger-to-apis
 ```
 
 Using yarn:
 
 ```bash
-$ yarn add axios
+$ yarn add swagger-to-apis
 ```
 
 ## Example
