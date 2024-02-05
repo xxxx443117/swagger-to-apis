@@ -43,7 +43,11 @@ export const refToInterface = (ref: string) => {
 };
 
 export const responseToInterface = (response: Responses) => {
-  const ref = response[200].content['application/json'].schema.$ref;
+  let ref = response[200].content?.['application/json']?.schema?.$ref;
+  if (ref) {
+    return refToInterface(ref);
+  }
+  ref = response[200].content?.['text/html']?.schema?.$ref;
   if (ref) {
     return refToInterface(ref);
   }
