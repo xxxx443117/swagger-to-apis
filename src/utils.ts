@@ -214,7 +214,7 @@ export const parseSchema = (key: string, schema: SchemasItem) => {
   let paramsType = `\n `;
   Object.keys(schema.properties).forEach((key) => {
     const parameter: PropertiesItem = schema.properties[key];
-    paramsType += `${key}${
+    paramsType += `"${key}"${
       schema.required ? (schema.required?.includes(key) ? '' : '?') : ''
     }: ${parametersToTypeofByParameter(parameter)}; ${
       parameter.description ? `// ${parameter.description}` : ''
