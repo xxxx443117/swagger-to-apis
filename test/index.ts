@@ -1,6 +1,7 @@
 import * as SwaggerToApi from '../src/index';
+import * as data from './data.json';
 
 SwaggerToApi.swaggerToApis({
-  apiUrl: 'https://example/api.json',
+  assets: data as unknown as any,
   reslib: './test/'
 });

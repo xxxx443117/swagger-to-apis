@@ -26,7 +26,7 @@ const prettierConfig: unknown = {
 
 interface Options {
   apiUrl?: string;
-  assets?: string;
+  assets?: Data;
   reslib?: string;
 }
 
@@ -36,9 +36,11 @@ export const swaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
     // @ts-ignore
     const res = await axios.get(apiUrl);
     data = res.data;
-  } else {
-    data = require(assets);
+  } else if (assets) {
+    data = assets;
   }
+
+  if (!data) throw new Error('data is null');
 
   const requestTem = await createTem('./template/tag/request.md');
   let requestRes = '';
