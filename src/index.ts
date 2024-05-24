@@ -1,4 +1,7 @@
-import axios = require('axios');
+// import axios = require('axios');
+import fetch = require('node-fetch');
+// import fetch from 'node-fetch';
+
 import * as prettier from 'prettier';
 
 import { createTem } from './createTem';
@@ -34,8 +37,14 @@ export const swaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
   let data: Data = null;
   if (apiUrl) {
     // @ts-ignore
-    const res = await axios.get(apiUrl);
-    data = res.data;
+    // const res = await axios.get(apiUrl);
+    const res1 = await fetch(apiUrl);
+
+    // const aaa = res1.toJSON()
+    const data1 = await res1.json();
+
+    // console.log(data1);
+    data = data1;
   } else if (assets) {
     data = assets;
   }
@@ -49,12 +58,13 @@ export const swaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
     const method = ele.get ? 'get' : 'post';
     const body = ele[method];
 
+    // console.log(body);
     const { params, arg, pathReq } = parseParameters(
       body.parameters,
       body?.requestBody,
     );
 
-    console.log(pathReq, transferPathParse(key), key);
+    // console.log(pathReq, transferPathParse(key), key);
     requestRes += requestTem.replace({
       method,
       handle: transferPathToVar(key),

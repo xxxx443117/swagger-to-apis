@@ -78,12 +78,18 @@ export const parametersToTypeofByParameter = (prop?: PropertiesItem) => {
   }
   if (type === 'integer') return 'number';
   if (type === 'array') {
+    if (item?.items?.type === 'array') {
+      return `${
+        `${item?.items?.format}`?.includes('int') ? 'number' : 'unknow'
+      }[]`;
+    }
     if (item?.items?.$ref) {
       return `${refToInterface(item?.items?.$ref)}[]`;
     }
     if (item?.$ref) {
       return `${refToInterface(item?.$ref)}[]`;
     }
+
     return `${parametersToTypeof(item.type)}[]`;
   }
   if (type === 'object') {
@@ -118,7 +124,7 @@ export const parseRequestBody = (requestBody?: RequestBody) => {
     };
   }
   const type = refToInterface(
-    requestBody.content['application/json'].schema.$ref,
+    requestBody.$ref || requestBody.content['application/json'].schema.$ref,
   );
 
   if (
@@ -162,7 +168,7 @@ export const parseParameters = (
 
   if (parameters.length === 1) {
     const { arg, params, pathReq } = getStrByParametersItem(parameters[0]);
-    console.log(pathReq);
+    // console.log(pathReq);
     return {
       arg: `${arg}${reqArg ? `, ${reqArg}` : ''}`,
       params: `{${params}${reqParams ? `, ...${reqParams}` : ''}}`,

@@ -28,6 +28,8 @@ export interface PropertiesItem {
 export type InnerItems = Omit<PropertiesItem, 'items'> & {
   items?: {
     $ref: string;
+    format?: string;
+    type?: string;
   };
   $ref?: string;
 };
@@ -64,6 +66,7 @@ export interface Responses {
 
 export interface RequestBody {
   required: true;
+  $ref?: string;
   content: {
     'application/json': {
       schema: {
