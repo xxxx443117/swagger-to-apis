@@ -1,7 +1,8 @@
-import * as SwaggerToApi from '../src/index';
-import * as data from './data.json';
+import { swaggerToApis } from '../src/index';
+import * as swagger_v2 from '../src/lib/swagger_v2.json';
+import { AllSwaggerDocumentVersions } from '../src/types';
 
-SwaggerToApi.swaggerToApis({
-  assets: data as unknown as any,
-  reslib: './test/'
+swaggerToApis({
+  doc: swagger_v2 as AllSwaggerDocumentVersions,
+  output: './output-apis',
 });

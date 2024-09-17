@@ -1,13 +1,13 @@
 import fs = require('fs');
 import path = require('path');
 
-class Template {
+class Template<ReplaceP extends Record<string, string>> {
   constructor(_value: string) {
     this.value = _value;
   }
   value: string;
 
-  replace(re: Record<string, string>) {
+  replace(re: ReplaceP) {
     let res = this.value;
     if (re) {
       Object.keys(re).forEach((key) => {
@@ -18,16 +18,13 @@ class Template {
   }
 }
 
-export const createTem = async (
-  _path: string,
-  // template?: Record<string, string>,
-) => {
+export const createTem = <T extends Record<string, string>>(_path: string) => {
   const fsPath = path.resolve(__dirname, _path);
-  const _data = await fs.readFileSync(fsPath);
+  const _data = fs.readFileSync(fsPath);
 
   let dataStr = _data.toString();
 
   dataStr = dataStr.replace('```ts', '').replace('```', '');
 
-  return new Template(dataStr);
+  return new Template<T>(dataStr);
 };

@@ -1,3 +1,11 @@
+import {
+  // eslint-disable-next-line camelcase
+  OpenAPI,
+  OpenAPIV2,
+  OpenAPIV3,
+  OpenAPIV3_1,
+} from 'openapi-types';
+
 export type Types =
   | 'object'
   | 'integer'
@@ -7,6 +15,11 @@ export type Types =
   | 'boolean';
 
 export const baseType = ['number', 'boolean', 'string'];
+
+export const UnknownType = {
+  key: 'Unknown',
+  type: 'type Unknown = unknown',
+};
 
 export interface PropertiesItem {
   description?: string;
@@ -112,3 +125,32 @@ export interface Data {
   };
   paths: Record<string, Paths>;
 }
+
+export type AllSwaggerDocumentVersions =
+  | OpenAPI.Document
+  | OpenAPIV2.Document
+  | OpenAPIV3.Document
+  | OpenAPIV3_1.Document;
+
+export interface Options {
+  skipInfo?: boolean;
+  output?: string;
+  url?: string;
+  doc?: AllSwaggerDocumentVersions;
+  forceVersion?: string;
+}
+
+export interface TransferResult {
+  api: string;
+  type: string;
+}
+
+export const ALLOWED_METHODS = [
+  'get',
+  'post',
+  'put',
+  'patch',
+  'delete',
+  'options',
+  'head',
+];

@@ -1,0 +1,1543 @@
+{
+  "schemes": [],
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the Lazai server API.",
+    "title": "Lazai API",
+    "contact": {},
+    "version": "1.0"
+  },
+  "host": "localhost:8080",
+  "basePath": "/v1",
+  "paths": {
+    "/auth": {
+      "post": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Authenticate Telegram user and create or update user record",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["auth"],
+        "summary": "Authenticate user",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/definitions/v1.UserData"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/daily_sign": {
+      "post": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Handles daily sign in for users, grants points",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tasks"],
+        "summary": "Daily sign in",
+        "responses": {
+          "200": {
+            "description": "Success: code=0, Already Signed In: code=1",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/img_like": {
+      "post": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Like a specific image by UUID",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["style_images"],
+        "summary": "Like an image",
+        "parameters": [
+          {
+            "description": "Like request",
+            "name": "like",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1.LikeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: code=0, Already Done: code=1",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/img_public": {
+      "post": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Set a specific image by UUID to be publicly visible",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["style_images"],
+        "summary": "Set image as public",
+        "parameters": [
+          {
+            "description": "Set image public request",
+            "name": "image",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1.SetImagePublicRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: code=0, Already Done: code=1",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/my_style_imgs": {
+      "get": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Retrieve a paginated list of images created by the authenticated user for a specific style",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["style_images"],
+        "summary": "Get user's style images",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Page number",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "Page size",
+            "name": "page_size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/definitions/v1.PaginatedStyleImages"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/my_styles": {
+      "get": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Retrieve a paginated list of styles created by the authenticated user",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["styles"],
+        "summary": "Get user's styles",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Page number",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "Page size",
+            "name": "page_size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/definitions/v1.PaginatedStyles"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/rank": {
+      "get": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Retrieves the top 100 user ranks for the current day, ordered by rank",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["ranking"],
+        "summary": "Get top ranks",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/v1.RankResponse"
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/rewards_and_tasks": {
+      "get": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Retrieves the user's task progress and reward information",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["tasks"],
+        "summary": "Get user rewards and tasks",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/definitions/v1.UserRewardsAndTasksResponse"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/style_imgs": {
+      "get": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Retrieve a paginated list of images associated with a specific style",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["style_images"],
+        "summary": "Get images for a style",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Style UUID",
+            "name": "uuid",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "Page number",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "Page size",
+            "name": "page_size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/definitions/v1.PaginatedStyleImages"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/style_like": {
+      "post": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Like a specific style by UUID",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["styles"],
+        "summary": "Like a style",
+        "parameters": [
+          {
+            "description": "Like request",
+            "name": "like",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1.LikeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: code=0, Already Done: code=1",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/styles": {
+      "get": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Retrieve a paginated list of available styles",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["styles"],
+        "summary": "Get available styles",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Page number",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "Page size",
+            "name": "page_size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/definitions/v1.PaginatedStyles"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/upload": {
+      "post": {
+        "security": [
+          {
+            "TelegramAuth": []
+          }
+        ],
+        "description": "Uploads an image file to an S3 bucket and returns the file URL",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "tags": ["upload"],
+        "summary": "Upload an image file",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "Image file to upload",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "$ref": "#/definitions/v1.FileUploadResponse"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Bad Request - No file is received",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized - User not found in context",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - S3 upload failed or initialization error",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/v1.Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "v1.CycleReward": {
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": "integer"
+        },
+        "reward": {
+          "type": "integer"
+        }
+      }
+    },
+    "v1.FileUploadResponse": {
+      "type": "object",
+      "properties": {
+        "file_url": {
+          "type": "string"
+        }
+      }
+    },
+    "v1.LikeRequest": {
+      "type": "object",
+      "required": ["uuid"],
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "v1.NodeInfo": {
+      "type": "object",
+      "properties": {
+        "nodes_completed": {
+          "type": "integer"
+        },
+        "nums": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "v1.PaginatedStyleImages": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "style_images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1.StyleImageData"
+          }
+        }
+      }
+    },
+    "v1.PaginatedStyles": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "styles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1.StyleData"
+          }
+        }
+      }
+    },
+    "v1.RankResponse": {
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "integer"
+        },
+        "rank": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "v1.Response": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "data": {},
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "v1.SetImagePublicRequest": {
+      "type": "object",
+      "required": ["uuid"],
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "v1.StyleData": {
+      "type": "object",
+      "properties": {
+        "likes": {
+          "type": "integer"
+        },
+        "loyalty_points": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "v1.StyleImageData": {
+      "type": "object",
+      "properties": {
+        "generated_image_path": {
+          "type": "string"
+        },
+        "is_public": {
+          "type": "boolean"
+        },
+        "likes": {
+          "type": "integer"
+        },
+        "loyalty_points": {
+          "type": "integer"
+        },
+        "original_image_path": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "v1.TaskProgressResponse": {
+      "type": "object",
+      "properties": {
+        "cycle_length": {
+          "type": "integer"
+        },
+        "cycle_rewards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1.CycleReward"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "is_daily": {
+          "type": "boolean"
+        },
+        "is_repeatable": {
+          "type": "boolean"
+        },
+        "last_completed": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "next_reset": {
+          "type": "string"
+        },
+        "progress": {
+          "type": "integer"
+        },
+        "task_id": {
+          "type": "integer"
+        },
+        "total_reward": {
+          "type": "integer"
+        }
+      }
+    },
+    "v1.UserData": {
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "type": "string"
+        },
+        "join_date": {
+          "type": "string"
+        },
+        "language_code": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "profile_image": {
+          "type": "string"
+        },
+        "userid": {
+          "type": "integer"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "v1.UserRewardsAndTasksResponse": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "$ref": "#/definitions/v1.NodeInfo"
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1.TaskProgressResponse"
+          }
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "user_points": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "TelegramAuth": {
+      "description": "Telegram Mini App init data prefixed with 'tma '",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

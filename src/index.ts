@@ -1,20 +1,15 @@
-// import axios = require('axios');
-import fetch = require('node-fetch');
-// import fetch from 'node-fetch';
-
-import * as prettier from 'prettier';
-
-import { createTem } from './createTem';
-import { Data } from './types';
+import { OpenAPIV2 } from 'openapi-types';
+import { namespace_tag_v2, transformV2 } from './transfer';
+import { AllSwaggerDocumentVersions, Options, TransferResult } from './types';
 import {
-  transferPathToVar,
-  parseParameters,
-  parseSchema,
-  responseToInterface,
-  transferPathParse,
-} from './utils';
-
-import { saveTem } from './saveTem';
+  isV2Document,
+  isV31Document,
+  isV3Document,
+} from './utils/detectDocumentVersion';
+import * as prettier from 'prettier';
+import { saveTem } from './utils/saveTem';
+import { fetchData } from './fetchs';
+import { initTransferTem } from './utils/initTransferTem';
 
 const prettierConfig: unknown = {
   parser: 'babel-ts',
@@ -27,110 +22,54 @@ const prettierConfig: unknown = {
   bracketSpacing: true,
 };
 
-interface Options {
-  apiUrl?: string;
-  assets?: Data;
-  reslib?: string;
+/**
+ * Check version of the document,
+ * run appropriate processor and beautify the markdown after processing.
+ *
+ * @export
+ * @param {AllSwaggerDocumentVersions} inputDoc
+ * @param {Options} options
+
+ */
+export async function transformSwagger(
+  inputDoc: AllSwaggerDocumentVersions,
+  output: string,
+) {
+  let transfer_res: TransferResult = {
+    api: '',
+    type: '',
+  };
+
+  if (isV2Document(inputDoc)) {
+    initTransferTem(output, prettierConfig, namespace_tag_v2);
+    transfer_res = transformV2(inputDoc as OpenAPIV2.Document);
+  } else if (isV3Document(inputDoc)) {
+    throw new Error('OpenAPI V3 is not yet supported');
+  } else if (isV31Document(inputDoc)) {
+    throw new Error('OpenAPI V3.1 is not yet supported');
+  } else {
+    throw new Error('Can not detect version ot this version in not supported');
+  }
+  console.log(transfer_res, output);
+
+  //   console.log(prettierConfig, prettier);
+  const format_api = await prettier.format(transfer_res.api, prettierConfig);
+  console.log(format_api, '==format_api');
+  saveTem(`${output}/apis/swagger/swagger.api.ts`, format_api);
+
+  const format_type = await prettier.format(transfer_res.type, prettierConfig);
+  saveTem(`${output}/apis/swagger/swagger.d.ts`, format_type);
 }
 
-export const swaggerToApis = async ({ apiUrl, assets, reslib }: Options) => {
-  let data: Data = null;
-  if (apiUrl) {
-    // @ts-ignore
-    // const res = await axios.get(apiUrl);
-    const res1 = await fetch(apiUrl);
-
-    // const aaa = res1.toJSON()
-    const data1 = await res1.json();
-
-    // console.log(data1);
-    data = data1;
-  } else if (assets) {
-    data = assets;
+export async function swaggerToApis(option: Options) {
+  let doc = option.doc;
+  if (option.url) {
+    doc = await fetchData(option.url);
   }
 
-  if (!data) throw new Error('data is null');
-
-  const requestTem = await createTem('./template/tag/request.md');
-  let requestRes = '';
-  Object.keys(data.paths).forEach((key) => {
-    const ele = data.paths[key];
-    const method = ele.get ? 'get' : 'post';
-    const body = ele[method];
-
-    // console.log(body);
-    const { params, arg, pathReq } = parseParameters(
-      body.parameters,
-      body?.requestBody,
-    );
-
-    // console.log(pathReq, transferPathParse(key), key);
-    requestRes += requestTem.replace({
-      method,
-      handle: transferPathToVar(key),
-      namespace: 'Swagger',
-      response: responseToInterface(body.responses),
-      path: transferPathParse(key),
-      params,
-      inPath: pathReq,
-      arg,
-      summary: `${body.summary} ${body.tags}`,
-    });
-  });
-  const swaggerTem = await createTem('./template/tag/swagger.md');
-
-  const swaggerRes = swaggerTem.replace({
-    tag: 'SwaggerApi',
-    body: requestRes,
-  });
-  const formatSwagger = await prettier.format(swaggerRes, prettierConfig);
-  saveTem(`${reslib}/apis/swagger/swagger.api.ts`, formatSwagger);
-
-  const typeTem = await createTem('./template/tag/type.md');
-
-  const { schemas } = data.components;
-  let schemaRes = '';
-  Object.keys(schemas).forEach((key) => {
-    const ele = schemas[key];
-    const resType = parseSchema(key, ele);
-
-    schemaRes += resType;
-  });
-
-  const typeRes = typeTem.replace({
-    namespace: 'Swagger',
-    body: schemaRes,
-  });
-
-  const formatType = await prettier.format(typeRes, prettierConfig);
-
-  saveTem(`${reslib}/apis/swagger/swagger.d.ts`, formatType);
-
-  const apiTem = await createTem('./template/api.api.md');
-  const apiRes = apiTem.replace({
-    importBody: '',
-    body: '',
-  });
-  const formatApi = await prettier.format(apiRes, prettierConfig);
-  saveTem(`${reslib}/apis/api.api.ts`, formatApi, { replace: false });
-
-  const apiTypeTem = await createTem('./template/api.d.ts.md');
-  saveTem(`${reslib}/apis/api.d.ts`, apiTypeTem.value, { replace: false });
-
-  const apiHttpTem = await createTem('./template/http.ts.md');
-  saveTem(`${reslib}/apis/http.ts`, apiHttpTem.value, { replace: false });
-
-  const apiIndexTem = await createTem('./template/index.ts.md');
-  saveTem(`${reslib}/apis/index.ts`, apiIndexTem.value, { replace: false });
-
-  const apiTypesTem = await createTem('./template/type.ts.md');
-  saveTem(`${reslib}/apis/type.ts`, apiTypesTem.value, { replace: false });
-
-  const apiUtilsTem = await createTem('./template/util.ts.md');
-  saveTem(`${reslib}/apis/util.ts`, apiUtilsTem.value, { replace: false });
+  await transformSwagger(doc, option.output);
 
   const date = Date();
   console.log('成功啦 !!!               ', date.toLocaleLowerCase());
   console.log('----------------分割线--------------');
-  // api.api.md;
-};
+}
