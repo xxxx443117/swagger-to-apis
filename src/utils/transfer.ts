@@ -1,3 +1,5 @@
+import { UnknownType } from '../types';
+
 export const transferPathToName = (path: string) => {
   return path.replace(/[/-]/g, '_').split(':')[0].split('{')[0];
 };
@@ -19,7 +21,7 @@ export const transferSchemaToType = (path: string) => {
 };
 
 export const refToInterface = (ref: string) => {
-  if (!ref) return 'unknow';
+  if (!ref) return UnknownType.key;
   const temp = ref?.split('/');
   return transferSchemaToType(temp[temp.length - 1]);
 };

@@ -11,7 +11,7 @@ import { saveTem } from './utils/saveTem';
 import { fetchData } from './fetchs';
 import { initTransferTem } from './utils/initTransferTem';
 
-const prettierConfig: unknown = {
+const prettierConfig: prettier.Options = {
   parser: 'babel-ts',
   tabWidth: 2,
   semi: true,
