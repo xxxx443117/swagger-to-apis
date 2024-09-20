@@ -1,3 +1,4 @@
+import { OpenAPIV3 } from 'openapi-types';
 import { UnknownType } from '../types';
 
 export const transferPathToName = (path: string) => {
@@ -24,4 +25,16 @@ export const refToInterface = (ref: string) => {
   if (!ref) return UnknownType.key;
   const temp = ref?.split('/');
   return transferSchemaToType(temp[temp.length - 1]);
+};
+
+export const getHttpMethods = (parameter: {
+  [method: string]: unknown;
+}): OpenAPIV3.HttpMethods => {
+  const keys = Object.values(OpenAPIV3.HttpMethods);
+
+  for (let key = 0; key < keys.length; key++) {
+    const element = keys[key];
+    if (parameter[element]) return element;
+  }
+  return OpenAPIV3.HttpMethods.GET;
 };

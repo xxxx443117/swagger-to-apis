@@ -1,5 +1,5 @@
-import { OpenAPIV2 } from 'openapi-types';
-import { namespace_tag_v2, transformV2 } from './transfer';
+import { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
+import { namespace_tag_v2, transformV2, transformV3 } from './transfer';
 import { AllSwaggerDocumentVersions, Options, TransferResult } from './types';
 import {
   isV2Document,
@@ -44,7 +44,8 @@ export async function transformSwagger(
     initTransferTem(output, prettierConfig, namespace_tag_v2);
     transfer_res = transformV2(inputDoc as OpenAPIV2.Document);
   } else if (isV3Document(inputDoc)) {
-    throw new Error('OpenAPI V3 is not yet supported');
+    // throw new Error('OpenAPI V3 is not yet supported');
+    transfer_res = transformV3(inputDoc as OpenAPIV3.Document);
   } else if (isV31Document(inputDoc)) {
     throw new Error('OpenAPI V3.1 is not yet supported');
   } else {
