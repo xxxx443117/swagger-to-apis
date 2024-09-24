@@ -38,3 +38,7 @@ export const getHttpMethods = (parameter: {
   }
   return OpenAPIV3.HttpMethods.GET;
 };
+
+export const getNamespaceRef = (namespace: string, type: string) => {
+  return `Api.${namespace}.${type}`;
+};

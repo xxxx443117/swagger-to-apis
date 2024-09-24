@@ -15,10 +15,7 @@
     "outDir": "lib",
     "resolveJsonModule": true,
     "noImplicitAny": false,
-    "baseUrl": "./",
-    "paths": {
-      "*": ["src/*"]
-    }
+    "baseUrl": "./"
   },
   "include": ["src/**/*", "src/template/*"],
   "exclude": ["lib", "node_modules"]

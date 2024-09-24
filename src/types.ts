@@ -154,3 +154,7 @@ export const ALLOWED_METHODS = [
   'options',
   'head',
 ];
+
+export const ALLOWED_CODES = ['200'];
+
+export const ALLOWED_PARAMETERS_IN = ['query', 'path'];

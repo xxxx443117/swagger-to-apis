@@ -78,12 +78,87 @@ export class Http {
   async post(
     url: string,
     data?: unknown,
+    params?: unknown,
     option: AxiosRequestConfigCustom = {},
   ) {
     const config: AxiosRequestConfigCustom = {
       method: 'POST',
       url,
       data,
+      baseURL,
+      ...option,
+    };
+    return this.request(config);
+  }
+  async put(
+    url: string,
+    data?: unknown,
+    params?: unknown,
+    option: AxiosRequestConfigCustom = {},
+  ) {
+    const config: AxiosRequestConfigCustom = {
+      method: 'PUT',
+      url,
+      data,
+      baseURL,
+      ...option,
+    };
+    return this.request(config);
+  }
+
+  async delete(
+    url: string,
+    data?: unknown,
+    params?: unknown,
+    option: AxiosRequestConfigCustom = {},
+  ) {
+    const config: AxiosRequestConfigCustom = {
+      method: 'DELETE',
+      url,
+      data,
+      baseURL,
+      ...option,
+    };
+    return this.request(config);
+  }
+  async patch(
+    url: string,
+    data?: unknown,
+    params?: unknown,
+    option: AxiosRequestConfigCustom = {},
+  ) {
+    const config: AxiosRequestConfigCustom = {
+      method: 'PATCH',
+      url,
+      data,
+      baseURL,
+      ...option,
+    };
+    return this.request(config);
+  }
+  async head(
+    url: string,
+    params?: unknown,
+    option: AxiosRequestConfigCustom = {},
+  ) {
+    const config: AxiosRequestConfigCustom = {
+      method: 'HEAD',
+      url,
+      params,
+      baseURL,
+      ...option,
+    };
+    return this.request(config);
+  }
+  async options(
+    url: string,
+    params?: unknown,
+    option: AxiosRequestConfigCustom = {},
+  ) {
+    const config: AxiosRequestConfigCustom = {
+      method: 'OPTIONS',
+      url,
+      params,
       baseURL,
       ...option,
     };
