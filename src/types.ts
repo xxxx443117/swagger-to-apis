@@ -157,4 +157,4 @@ export const ALLOWED_METHODS = [
 
 export const ALLOWED_CODES = ['200'];
 
-export const ALLOWED_PARAMETERS_IN = ['query', 'path'];
+export const ALLOWED_PARAMETERS_IN = ['query', 'path', 'body', 'formData'];

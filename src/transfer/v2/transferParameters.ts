@@ -27,8 +27,8 @@ export const transferParameters = (
     const param = transferParameter(parameters[0], namespace_tag);
     if (param.name) {
       arg = `${param.name}${param.required ? '' : '?'}: ${param.type}`;
-      in_path = param.path_in ? `/${param.name}` : '';
-      params = `{${param.name}}`;
+      in_path = param.path_in ? `/$\{${param.name}}` : '';
+      params = param.base_type ? `{${param.name}}` : param.name;
     }
     if (parameters[1]) {
       const param1 = transferParameter(parameters[1], namespace_tag);
@@ -110,12 +110,13 @@ function transferParameter(
     };
   }
 
-  const type = parseBaseType(parameter.type);
+  const type = parseBaseType(parameter.type || parameter.schema?.type);
 
   return {
     name,
     type,
     path_in,
+    base_type: true,
     required: parameter.required,
     description: parameter.description,
   };
