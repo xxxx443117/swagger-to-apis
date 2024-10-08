@@ -18,28 +18,22 @@ $ yarn add swagger-to-apis
 
 ## Example
 
+#### create your `swagger-to-apis.ts` file
 ```ts
-import SwaggerToApi from "swagger-to-apis";
-```
-or
-```ts
-import * as SwaggerToApi from 'swagger-to-apis';
-```
+import { swaggerToApis } from "swagger-to-apis";
 
-### For api url
-```ts
-SwaggerToApi.swaggerToApis({
-  apiUrl: "https://openapi.example.com/api.json", // OpenApi url
-  reslib: "./src/", // out lib dir
-});
-```
-
-### For local json
-```ts
-SwaggerToApi.swaggerToApis({
-  assets: "./local/api.json", // local OpenApi json
-  reslib: "./src", // out lib dir
+swaggerToApis({
+  url: "https://petstore.swagger.io/v2/swagger.json", // Change to your URL
+  output: "./src/apis",
 });
 
 ```
+#### Add the script in your `package.json` file.
+```json
+    "apis": "npx tsx swagger-to-apis.ts",
+```
 
+#### Run the script
+```bash
+$ npm run apis
+```
