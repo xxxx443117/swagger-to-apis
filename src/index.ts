@@ -57,11 +57,9 @@ export async function transformSwagger(
   } else {
     throw new Error('Can not detect version ot this version in not supported');
   }
-  console.log(transfer_res, output);
 
   //   console.log(prettierConfig, prettier);
   const format_api = await prettier.format(transfer_res.api, prettierConfig);
-  console.log(format_api, '==format_api');
   saveTem(`${output}/apis/swagger/swagger.api.ts`, format_api);
 
   const format_type = await prettier.format(transfer_res.type, prettierConfig);

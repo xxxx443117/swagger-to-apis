@@ -61,7 +61,6 @@ export function transferAdditionalPropertiesSchemaObject(
   properties: boolean | OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject,
   namespace_tag: string,
 ) {
-  console.log(type, properties, namespace_tag);
   if (typeof properties === 'boolean') return UnknownType.key;
 
   if (type === 'array') {

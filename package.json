@@ -12,6 +12,7 @@
     "prettier": "prettier --write \"src/**/*.ts\"",
     "build": "npm run eslint && npm run prettier && tsc --build && npm run cp",
     "cp": "ts-node cpTem.ts",
+    "test": "jest",
     "prepare": "husky install && npm run build",
     "start": "ts-node src/index.ts",
     "test:start": "ts-node test/index.ts",

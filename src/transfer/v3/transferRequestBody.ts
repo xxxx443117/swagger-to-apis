@@ -6,7 +6,6 @@ export const transferRequestBody = (
   requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject,
   namespace_tag: string,
 ) => {
-  console.log(requestBody);
   let params = '';
   let arg = '';
 

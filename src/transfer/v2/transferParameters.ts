@@ -8,7 +8,6 @@ export const transferParameters = (
   parameters: OpenAPIV2.Parameters,
   namespace_tag: string,
 ) => {
-  console.log(parameters);
   let in_path = '';
   let params = '';
   let arg = '';
@@ -54,8 +53,11 @@ export const transferParameters = (
   for (let index = 0; index < parameters.length; index++) {
     const parameter = parameters[index];
     const param = transferParameter(parameter, namespace_tag);
+
     if (param.name) {
-      in_path = param.path_in ? `${in_path}/${param.name}` : '';
+      if (param.path_in) {
+        in_path = `${in_path}/${param.name}`;
+      }
       param_obj = `${param_obj}"${param.name}"${param.required ? '' : '?'}: ${param.type}; ${param.description ? `// ${param.description || ''}` : ''} \n `;
     }
   }
@@ -65,6 +67,7 @@ export const transferParameters = (
 
   return {
     arg,
+    params_name: 'params',
     in_path,
     params,
   };
@@ -74,10 +77,14 @@ function transferParameter(
   parameter: OpenAPIV2.ReferenceObject | OpenAPIV2.ParameterObject,
   namespace_tag: string,
 ) {
-  if ('$ref' in parameter || !ALLOWED_PARAMETERS_IN.includes(parameter.in)) {
+  if (
+    !parameter ||
+    '$ref' in parameter ||
+    !ALLOWED_PARAMETERS_IN.includes(parameter.in)
+  ) {
     return {
       name: '',
-      type: '',
+      type: 'unknown',
       path_in: false,
       required: false,
     };
@@ -110,6 +117,16 @@ function transferParameter(
     };
   }
 
+  if (parameter.type === 'array' && 'items' in parameter) {
+    return {
+      name,
+      type: `${parameter.items.type}[]`,
+      path_in,
+      base_type: true,
+      required: parameter.required,
+      description: parameter.description,
+    };
+  }
   const type = parseBaseType(parameter.type || parameter.schema?.type);
 
   return {

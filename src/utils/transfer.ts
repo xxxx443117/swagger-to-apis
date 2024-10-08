@@ -5,8 +5,10 @@ export const transferPathToName = (path: string) => {
   return path.replace(/[/-]/g, '_').split(':')[0].split('{')[0];
 };
 
-export const transferPathParse = (path: string) => {
-  return path.split(':')[0].split('{')[0];
+export const transferPathParse = (path: string, params?: string) => {
+  return path
+    .replace(/:(\w+)/g, '{$1}')
+    .replace(/\{/g, `\${${params ? params + '.' : ''}`);
 };
 
 const firstUpperCase = ([first, ...rest]: string) =>

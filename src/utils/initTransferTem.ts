@@ -15,7 +15,7 @@ export const initTransferTem = async (
   });
 
   const formatApi = await prettier.format(apiRes, prettierConfig);
-  saveTem(`${output}/apis/api.api.ts`, formatApi, { replace: false });
+  saveTem(`${output}/apis/api.api.ts`, formatApi, { replace: true });
 
   const apiTypeTem = createTem('../template/api.d.ts.md');
   saveTem(`${output}/apis/api.d.ts`, apiTypeTem.value, {

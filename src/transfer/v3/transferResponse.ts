@@ -8,7 +8,6 @@ export const transferResponse = (responses: OpenAPIV3.ResponsesObject) => {
   Object.keys(responses).forEach((code) => {
     if (ALLOWED_CODES.includes(code)) {
       const data = responses[code];
-      console.log(data);
 
       if ('$ref' in data) {
         namespace_type = refToInterface(data.$ref);
@@ -19,7 +18,5 @@ export const transferResponse = (responses: OpenAPIV3.ResponsesObject) => {
       }
     }
   });
-  console.log(namespace_type);
-  // return 'AAA';
   return namespace_type;
 };

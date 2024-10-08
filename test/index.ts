@@ -5,8 +5,14 @@ import { swaggerToApis } from '../src/index';
 
 swaggerToApis({
   // doc: swagger_v2 as AllSwaggerDocumentVersions,
-  url: 'https://drgv-http-and-scanner.w2cfm5.easypanel.host/api/api.json',
-  output: './output-apis',
+  url: 'https://petstore3.swagger.io/api/v3/openapi.json',
+  output: './output-v3-apis',
+});
+
+swaggerToApis({
+  // doc: swagger_v2 as AllSwaggerDocumentVersions,
+  url: 'https://petstore.swagger.io/v2/swagger.json',
+  output: './output-v2-apis',
 });
 
 export default {};

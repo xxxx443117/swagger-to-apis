@@ -20,11 +20,11 @@ export const saveTem = async (
     fs.mkdirSync(parsedPath.dir, { recursive: true });
   }
   if (!option.replace && fs.existsSync(fsPath)) {
-    console.log(`file i exists: ${_path}`);
+    console.error(`file i exists: ${_path}`);
     return;
   }
   fs.writeFile(fsPath, data, (error) => {
-    console.log(error);
+    console.error(error);
   });
   // const _data = await fs.readFileSync(fsPath);
 };

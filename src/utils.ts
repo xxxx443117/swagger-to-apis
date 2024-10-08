@@ -10,7 +10,7 @@ import {
 } from './types';
 
 export const transferPathToVar = (path: string) => {
-  return path.replace(/[/-]/g, '_').split(':')[0].split('{')[0];
+  return path.replace(/[/-]/g, '_').split(':')[0].replace(/[{}]/g, '');
 };
 
 export const transferPathParse = (path: string) => {
@@ -168,7 +168,6 @@ export const parseParameters = (
 
   if (parameters.length === 1) {
     const { arg, params, pathReq } = getStrByParametersItem(parameters[0]);
-    // console.log(pathReq);
     return {
       arg: `${arg}${reqArg ? `, ${reqArg}` : ''}`,
       params: `{${params}${reqParams ? `, ...${reqParams}` : ''}}`,

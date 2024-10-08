@@ -85,6 +85,7 @@ export class Http {
       method: 'POST',
       url,
       data,
+      params,
       baseURL,
       ...option,
     };
@@ -100,6 +101,7 @@ export class Http {
       method: 'PUT',
       url,
       data,
+      params,
       baseURL,
       ...option,
     };
@@ -116,6 +118,7 @@ export class Http {
       method: 'DELETE',
       url,
       data,
+      params,
       baseURL,
       ...option,
     };

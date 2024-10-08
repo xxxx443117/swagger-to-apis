@@ -9,7 +9,6 @@ export const transferPathInfo = (
   path_info: OpenAPIV3.OperationObject,
   namespace_tag: string,
 ) => {
-  console.log(path_info, namespace_tag);
   let response = UnknownType.key;
   if (path_info.responses) {
     response = transferResponse(path_info.responses);

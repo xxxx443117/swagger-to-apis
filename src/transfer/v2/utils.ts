@@ -5,7 +5,7 @@ import { baseType, UnknownType } from '../../types';
 export function parseBaseType(type: string | string[]) {
   if (type === 'integer') return 'number';
   if (type === 'file') return 'FormData';
-  if (type === 'array') return '';
+  if (type === 'array') return 'unknown';
   if (typeof type === 'string' && baseType.includes(type)) return type;
   return UnknownType.key;
 }
@@ -43,7 +43,6 @@ export function transferAdditionalPropertiesSchemaObject(
   properties: boolean | IJsonSchema,
   namespace_tag: string,
 ) {
-  console.log(type, properties, namespace_tag);
   if (typeof properties === 'boolean') return UnknownType.key;
 
   if (type === 'array') {

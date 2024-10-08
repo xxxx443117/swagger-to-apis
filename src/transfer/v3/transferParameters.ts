@@ -8,7 +8,6 @@ export const transferParameters = (
   parameters: (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[],
   namespace_tag: string,
 ) => {
-  console.log(parameters);
   let in_path = '';
   let params = '';
   let arg = '';
@@ -74,7 +73,11 @@ function transferParameter(
   parameter: OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject,
   namespace_tag: string,
 ) {
-  if ('$ref' in parameter || !ALLOWED_PARAMETERS_IN.includes(parameter.in)) {
+  if (
+    !parameter ||
+    '$ref' in parameter ||
+    !ALLOWED_PARAMETERS_IN.includes(parameter.in)
+  ) {
     return {
       name: '',
       type: '',

@@ -5,6 +5,8 @@ import { refToInterface } from '../../utils/transfer';
 export const transferResponse = (responses: OpenAPIV2.ResponsesObject) => {
   const res: OpenAPIV2.Response = responses.default || responses[200];
 
+  if (!res) return UnknownType.key;
+
   if ('$ref' in res) {
     return refToInterface(res.$ref);
   }

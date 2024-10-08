@@ -50,20 +50,21 @@ function getRequestApisWithPaths(
     Object.keys(data).forEach((method) => {
       if (ALLOWED_METHODS.includes(method)) {
         const pathInfo: OpenAPIV2.OperationObject = data[method];
-        const { response, params, in_path, arg } = transferPathInfo(
+        const { response, params, arg, in_path_params } = transferPathInfo(
           pathInfo,
           namespace,
         );
 
         const description = `${pathInfo.deprecated ? '@deprecated' : ''} ${pathInfo.summary} ${pathInfo.tags}  ${pathInfo.description ? `(${pathInfo.description})` : ''}`;
+
         requestRes += requestTem.replace({
           method,
           handle: transferPathToVar(path),
           namespace,
           response,
-          path: `${basePath ? basePath : ''}${transferPathParse(path)}`,
+          path: `${basePath ? basePath : ''}${transferPathParse(path, in_path_params)}`,
           params,
-          in_path,
+          in_path: '',
           arg,
           summary: description,
         });
