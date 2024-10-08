@@ -1,6 +1,6 @@
 {
   "name": "swagger-to-apis",
-  "version": "1.0.21",
+  "version": "2.0.0",
   "description": "Swagger transform APIs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -17,7 +17,7 @@
     "test:start": "ts-node test/index.ts",
     "prepublishOnly": "npm run eslint",
     "preversion": "npm run eslint",
-    "version": "npm run format && git add -A src",
+    "version": "npm run prettier && git add -A src",
     "postversion": "git push && git push --tags"
   },
   "keywords": [
@@ -31,9 +31,9 @@
     "@types/axios": "^0.14.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.4.8",
-    "@typescript-eslint/eslint-plugin": "^6.3.0",
-    "@typescript-eslint/parser": "^6.3.0",
-    "eslint": "^8.46.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.1",
     "husky": "^8.0.0",
     "jest": "^29.7.0",
     "prettier": "^3.0.1",
