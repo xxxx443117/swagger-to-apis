@@ -13,6 +13,7 @@ export const initTransferTem = async (
     body: '',
     namespace,
   });
+
   const formatApi = await prettier.format(apiRes, prettierConfig);
   saveTem(`${output}/apis/api.api.ts`, formatApi, { replace: false });
 
