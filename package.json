@@ -16,7 +16,7 @@
     "prepare": "husky install && npm run build",
     "start": "ts-node src/index.ts",
     "test:start": "ts-node test/index.ts",
-    "prepublishOnly": "npm run eslint",
+    "prepublishOnly": "npm run eslint && npm run version",
     "preversion": "npm run eslint",
     "version": "npm run prettier && git add -A src",
     "postversion": "git push && git push --tags"
