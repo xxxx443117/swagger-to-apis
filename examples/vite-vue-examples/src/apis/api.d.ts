@@ -1,5 +1,3 @@
-
-```ts
 declare namespace Api {
   interface Error {
     code: number;
@@ -7,14 +5,13 @@ declare namespace Api {
   }
 
   // If your API does not have an outer wrapper
-  // type Response<T> = T;
+  type Response<T> = T;
 
   // Your API has an outer layer that can be customized to modify the current structure
-  interface Response<T> {
-    code: number;
-    msg: string;
-    message: string;
-    data: T;
-  }
+  // interface Response<T> {
+  //   code: number;
+  //   msg: string;
+  //   message: string;
+  //   data: T;
+  // }
 }
-```

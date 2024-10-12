@@ -54,7 +54,9 @@ export const transferParameters = (
     const parameter = parameters[index];
     const param = transferParameter(parameter, namespace_tag);
     if (param.name) {
-      in_path = param.path_in ? `${in_path}/${param.name}` : '';
+      if (param.path_in) {
+        in_path = `${in_path}/${param.name}`;
+      }
       param_obj = `${param_obj}"${param.name}"${param.required ? '' : '?'}: ${param.type}; ${param.description ? `// ${param.description || ''}` : ''} \n `;
     }
   }
@@ -64,6 +66,7 @@ export const transferParameters = (
 
   return {
     arg,
+    params_name: 'params',
     in_path,
     params,
   };

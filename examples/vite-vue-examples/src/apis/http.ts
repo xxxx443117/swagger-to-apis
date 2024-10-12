@@ -1,4 +1,3 @@
-```ts
 import axios, { AxiosRequestConfig } from 'axios';
 import { isSuccess } from './util';
 
@@ -9,7 +8,7 @@ interface AxiosRequestConfigCustom extends AxiosRequestConfig {
   ignoreSID?: boolean; // 是否忽略SID
 }
 
-const baseURL = '/'; // change to your base url
+const baseURL = 'https://petstore.swagger.io/'; // change to your base url
 
 axios.defaults.timeout = 30 * 1000;
 
@@ -173,4 +172,3 @@ export class Http {
     return isSuccess(res);
   }
 }
-```

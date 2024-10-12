@@ -17,11 +17,12 @@ export const transferPathInfo = (
   let in_path = '';
   let params = '';
   let arg = '';
+  let in_path_params = '';
 
   if (path_info.requestBody) {
     const t_res = transferRequestBody(path_info.requestBody, namespace_tag);
     arg = t_res.arg;
-    params = t_res.arg;
+    params = t_res.params;
   }
 
   if (path_info.parameters) {
@@ -32,12 +33,16 @@ export const transferPathInfo = (
     if (t_res.params) {
       params = params ? `${params}, ${t_res.params}` : t_res.params;
     }
+    if (t_res.in_path && t_res.params_name) {
+      in_path_params = t_res.params_name;
+    }
     in_path = t_res.in_path;
   }
   return {
     response,
     params,
     in_path,
+    in_path_params,
     arg,
   };
 };

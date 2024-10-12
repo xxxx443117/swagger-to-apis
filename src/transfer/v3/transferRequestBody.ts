@@ -14,21 +14,23 @@ export const transferRequestBody = (
       namespace_tag,
       refToInterface(requestBody.$ref),
     );
-    params = `data: ${type}`;
-    arg = 'data';
+    arg = `data: ${type}`;
+    params = 'data';
   }
 
   if ('content' in requestBody) {
-    const data = requestBody.content;
-    if ('application/json' in data) {
-      const _interface = transferMedia(data['application/json']);
+    const content = requestBody.content;
+    if ('application/json' in content) {
+      const _interface = transferMedia(content['application/json']);
+      console.log(_interface, content['application/json']);
       const type = getNamespaceRef(namespace_tag, _interface);
-      params = `data: ${type}`;
-      arg = 'data';
+      arg = `data: ${type}`;
+      params = 'data';
     }
   }
   // return namespace_type;
 
+  console.log(params, arg);
   return {
     arg,
     params,

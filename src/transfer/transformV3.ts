@@ -3,7 +3,8 @@ import { ALLOWED_METHODS, TransferResult, UnknownType } from '../types';
 import { createTem } from '../utils/createTem';
 
 import { transferPathInfo } from './v3/transferPathInfo';
-import { transferPathParse, transferPathToVar } from '../utils';
+import { transferPathToVar } from '../../src/utils';
+import { transferPathParse } from '../utils/transfer';
 import { transferComponentsSchemas } from './v3/transferComponentsSchemas';
 
 export const namespace = 'SwaggerV3';
@@ -35,7 +36,7 @@ function getRequestApisWithPaths(paths: OpenAPIV3.PathsObject) {
     Object.keys(data).forEach((method) => {
       if (ALLOWED_METHODS.includes(method)) {
         const pathInfo: OpenAPIV3.OperationObject = data[method];
-        const { response, params, in_path, arg } = transferPathInfo(
+        const { response, params, arg, in_path_params } = transferPathInfo(
           pathInfo,
           namespace,
         );
@@ -46,9 +47,9 @@ function getRequestApisWithPaths(paths: OpenAPIV3.PathsObject) {
           handle: transferPathToVar(path),
           namespace,
           response,
-          path: transferPathParse(path),
+          path: transferPathParse(path, in_path_params),
           params,
-          in_path,
+          in_path: '',
           arg,
           summary: description,
         });
