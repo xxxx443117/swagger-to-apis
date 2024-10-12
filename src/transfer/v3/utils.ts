@@ -89,5 +89,11 @@ export function transferSchemaObject(
 
     return `${type}[]`;
   }
+  if (schema.enum) {
+    return schema.enum.reduce((prev, curr) => {
+      if (prev) return `${prev} | "${curr}"`;
+      return `"${curr}"`;
+    }, '');
+  }
   return parseType(schema.type, schema.properties, namespace_tag);
 }
