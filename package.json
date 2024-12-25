@@ -18,8 +18,7 @@
     "test:start": "ts-node test/index.ts",
     "prepublishOnly": "npm run eslint && npm run version",
     "preversion": "npm run eslint",
-    "version": "npm run prettier && git add -A src",
-    "postversion": "git push && git push --tags"
+    "version": "npm run prettier && git add -A src"
   },
   "keywords": [
     "swagger-to-apis",
