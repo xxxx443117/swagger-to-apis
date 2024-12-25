@@ -21,6 +21,9 @@ export const transferDefinitionsObject = (
     return `type ${typeKey} = ${params_type}[]
   `;
   }
+  if (schema.enum) {
+    return `type ${typeKey} = ${params_type};\n`;
+  }
   return `
     interface ${typeKey} {
       ${params_type}

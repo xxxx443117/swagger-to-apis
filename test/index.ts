@@ -11,7 +11,7 @@ swaggerToApis({
 
 swaggerToApis({
   // doc: swagger_v2 as AllSwaggerDocumentVersions,
-  url: 'https://petstore.swagger.io/v2/swagger.json',
+  url: 'http://143.198.45.160:8888/swagger/doc.json',
   output: './output-v2-apis',
 });
 

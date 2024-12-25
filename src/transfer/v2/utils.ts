@@ -19,6 +19,7 @@ export function parseType(
 ) {
   if (type === 'object') {
     let res = ``;
+    if (!properties) return res;
     Object.keys(properties).forEach((name) => {
       const data = properties[name];
       let description = '';
