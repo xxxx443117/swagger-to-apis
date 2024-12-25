@@ -32,9 +32,16 @@ export const transferParameters = (
     if (parameters[1]) {
       const param1 = transferParameter(parameters[1], namespace_tag);
       if (param1.name) {
-        arg = arg
-          ? `${arg}, ${param1.name}${param1.required ? '' : '?'}: ${param1.type}`
-          : `${param1.name}${param1.required ? '' : '?'}: ${param1.type}`;
+        if (arg) {
+          // 必选参数放前面
+          if (param1.required) {
+            arg = `${param1.name}: ${param1.type}, ${arg}`;
+          } else {
+            arg = `${arg}, ${param1.name}?: ${param1.type}`;
+          }
+        } else {
+          arg = `${param1.name}${param1.required ? '' : '?'}: ${param1.type}`;
+        }
         params = params
           ? `{${param.name}, ${param1.name}}`
           : `{ ${param1.name}}`;

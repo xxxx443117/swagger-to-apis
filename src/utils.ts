@@ -10,7 +10,11 @@ import {
 } from './types';
 
 export const transferPathToVar = (path: string) => {
-  return path.replace(/[/-]/g, '_').split(':')[0].replace(/[{}]/g, '');
+  return path
+    .replace(/[/-]/g, '_') // 替换 / 和 - 为 _
+    .replace(/{|}/g, '') // 去除大括号 {}
+    .split(':') // 按 : 分割字符串
+    .join('_'); // 使用 _ 连接分割后的数组
 };
 
 export const transferPathParse = (path: string) => {

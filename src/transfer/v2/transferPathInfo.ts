@@ -31,6 +31,7 @@ export const transferPathInfo = (
     }
     in_path = t_res.in_path;
   }
+
   return {
     response,
     params,
