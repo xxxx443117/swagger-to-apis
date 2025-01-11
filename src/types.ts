@@ -138,6 +138,7 @@ export interface Options {
   url?: string;
   doc?: AllSwaggerDocumentVersions;
   forceVersion?: string;
+  namespace?: string;
 }
 
 export interface TransferResult {
