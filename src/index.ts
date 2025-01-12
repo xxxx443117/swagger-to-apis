@@ -39,7 +39,7 @@ const prettierConfig: prettier.Options = {
 export async function transformSwagger(
   inputDoc: AllSwaggerDocumentVersions,
   output: string,
-  namespace?: string,
+  // namespace?: string,
 ) {
   let transfer_res: TransferResult = {
     api: '',
@@ -47,11 +47,11 @@ export async function transformSwagger(
   };
 
   if (isV2Document(inputDoc)) {
-    initTransferTem(output, prettierConfig, namespace || namespace_tag_v2);
+    initTransferTem(output, prettierConfig, namespace_tag_v2);
     transfer_res = transformV2(inputDoc as OpenAPIV2.Document);
   } else if (isV3Document(inputDoc)) {
     // throw new Error('OpenAPI V3 is not yet supported');
-    initTransferTem(output, prettierConfig, namespace || namespace_tag_v3);
+    initTransferTem(output, prettierConfig, namespace_tag_v3);
     transfer_res = transformV3(inputDoc as OpenAPIV3.Document);
   } else if (isV31Document(inputDoc)) {
     throw new Error('OpenAPI V3.1 is not yet supported');
@@ -73,7 +73,7 @@ export async function swaggerToApis(option: Options) {
     doc = await fetchData(option.url);
   }
 
-  await transformSwagger(doc, option.output, option.namespace);
+  await transformSwagger(doc, option.output);
 
   const date = Date();
   console.log('成功啦 !!!               ', date.toLocaleLowerCase());

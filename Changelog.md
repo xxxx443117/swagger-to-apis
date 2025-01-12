@@ -8,3 +8,8 @@
 ### Feature
 - 新增 namespace 参数
 
+## [2.0.8] - 2025-01-11
+### Fixed
+- namespace 参数无效 去掉此参数
+
+
