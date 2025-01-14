@@ -8,3 +8,6 @@
 ### Feature
 - 新增 namespace 参数
 
+## [2.0.8] - 2025-01-13
+### Fixed
+- 修复 map 类型解析
