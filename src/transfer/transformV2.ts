@@ -68,7 +68,9 @@ function getRequestApisWithPaths(
          */
         let _arg = arg;
         pathIncludeParams = pathIncludeParams?.filter(
-          (item) => !arg.includes(`${item}:`),
+          (item) =>
+            !new RegExp(`^${item}`).test(arg) &&
+            !new RegExp(`["' ]${item}["']`).test(arg),
         );
         if (pathIncludeParams?.length) {
           _arg = `${formatPathParams(pathIncludeParams, namespace)}${arg}`;
