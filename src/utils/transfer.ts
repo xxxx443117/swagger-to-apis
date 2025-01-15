@@ -11,6 +11,18 @@ export const transferPathParse = (path: string, params?: string) => {
     .replace(/\{/g, `\${${params ? params + '.' : ''}`);
 };
 
+export const checkPathIncludeParams = (path: string) => {
+  return path.match(/:(\w+)/g)?.map((item) => item.replace(/:(\w+)/g, '$1'));
+};
+
+export const formatPathParams = (params: string[], namespace: string) => {
+  return params.reduce(
+    (prev, curr) =>
+      `${prev}${curr}: ${getNamespaceRef(namespace, UnknownType.key)}, `,
+    '',
+  );
+};
+
 const firstUpperCase = ([first, ...rest]: string) =>
   first.toUpperCase() + rest.join('');
 

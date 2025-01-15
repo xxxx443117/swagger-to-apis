@@ -19,6 +19,7 @@ export const transferPathInfo = (
   let in_path_params = '';
   if (path_info.parameters) {
     const t_res = transferParameters(path_info.parameters, namespace_tag);
+    console.log(t_res);
     if (t_res.arg) {
       arg = arg ? `${arg}, ${t_res.arg}` : t_res.arg;
     }

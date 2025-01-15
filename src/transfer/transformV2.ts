@@ -1,7 +1,11 @@
 import { createTem } from '../utils/createTem';
 import { OpenAPIV2 } from 'openapi-types';
 import { ALLOWED_METHODS, TransferResult, UnknownType } from '../types';
-import { transferPathParse } from '../utils/transfer';
+import {
+  checkPathIncludeParams,
+  formatPathParams,
+  transferPathParse,
+} from '../utils/transfer';
 import { transferPathToVar } from '../../src/utils';
 import { transferPathInfo } from './v2/transferPathInfo';
 import { transferDefinitionsObject } from './v2/transferDefinitionsObject';
@@ -57,6 +61,19 @@ function getRequestApisWithPaths(
 
         const description = `${pathInfo.deprecated ? '@deprecated' : ''} ${pathInfo.summary} ${pathInfo.tags}  ${pathInfo.description ? `(${pathInfo.description})` : ''}`;
 
+        let pathIncludeParams = checkPathIncludeParams(path);
+        /**
+         * @hack 处理非标准参数
+         * 如果路径中包含参数，但是没有在parameters中没有，则需要将in_path设置为参数
+         */
+        let _arg = arg;
+        pathIncludeParams = pathIncludeParams?.filter(
+          (item) => !arg.includes(item),
+        );
+        if (pathIncludeParams?.length) {
+          _arg = `${formatPathParams(pathIncludeParams, namespace)}${arg}`;
+        }
+
         requestRes += requestTem.replace({
           method,
           handle: transferPathToVar(path),
@@ -65,7 +82,7 @@ function getRequestApisWithPaths(
           path: `${basePath ? basePath : ''}${transferPathParse(path, in_path_params)}`,
           params,
           in_path: '',
-          arg,
+          arg: _arg,
           summary: description,
         });
       }
