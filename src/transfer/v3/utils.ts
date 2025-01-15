@@ -59,7 +59,6 @@ export function transferSchema(
   return transferSchemaObject(schema, namespace_tag);
 }
 
-
 export function transferAdditionalPropertiesSchemaObject(
   type: 'array' | OpenAPIV3.NonArraySchemaObjectType,
   properties: boolean | OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject,
