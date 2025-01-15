@@ -27,7 +27,7 @@ export const transferParameters = (
     if (param.name) {
       arg = `${param.name}${param.required ? '' : '?'}: ${param.type}`;
       in_path = param.path_in ? `/$\{${param.name}}` : '';
-      params = param.base_type ? `{${param.name}}` : param.name;
+      params = param.base_type ? `{${param.deconstruction? '...' : ''}${param.name}}` : param.name;
     }
     if (parameters[1]) {
       const param1 = transferParameter(parameters[1], namespace_tag);
@@ -43,8 +43,8 @@ export const transferParameters = (
           arg = `${param1.name}${param1.required ? '' : '?'}: ${param1.type}`;
         }
         params = params
-          ? `{${param.name}, ${param1.name}}`
-          : `{ ${param1.name}}`;
+          ? `{${param.deconstruction? '...' : ''}${param.name}, ${param1.deconstruction? '...' : ''}${param1.name}}`
+          : `{ ${param1.deconstruction? '...' : ''}${param1.name}}`;
         in_path = param.path_in ? `${in_path}/${param.name}` : in_path;
       }
     }
@@ -109,6 +109,7 @@ function transferParameter(
         name,
         path_in,
         type,
+        deconstruction: true, // 需要解构
         required: parameter.required,
         description: parameter.description,
       };

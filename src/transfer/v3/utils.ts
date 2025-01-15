@@ -53,8 +53,12 @@ export function transferSchema(
   if ('$ref' in schema) {
     return getNamespaceRef(namespace_tag, refToInterface(schema.$ref));
   }
+  if (schema.format?.includes('map')) {
+    return `Record<string, ${transferSchemaObject(schema, namespace_tag)}>`;
+  }
   return transferSchemaObject(schema, namespace_tag);
 }
+
 
 export function transferAdditionalPropertiesSchemaObject(
   type: 'array' | OpenAPIV3.NonArraySchemaObjectType,
