@@ -22,7 +22,7 @@ export const transferRequestBody = (
     const content = requestBody.content;
     if ('application/json' in content) {
       const _interface = transferMedia(content['application/json']);
-      console.log(_interface, content['application/json']);
+      // console.log(_interface, content['application/json']);
       const type = getNamespaceRef(namespace_tag, _interface);
       arg = `data: ${type}`;
       params = 'data';
@@ -30,7 +30,7 @@ export const transferRequestBody = (
   }
   // return namespace_type;
 
-  console.log(params, arg);
+  // console.log(params, arg);
   return {
     arg,
     params,

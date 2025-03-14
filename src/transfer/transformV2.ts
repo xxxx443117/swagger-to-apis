@@ -72,8 +72,13 @@ function getRequestApisWithPaths(
             !new RegExp(`^${item}`).test(arg) &&
             !new RegExp(`["' ]${item}["']`).test(arg),
         );
+
+        // 如果路径中包含参数，但是没有在parameters中没有，则需要将in_path设置为参数
         if (pathIncludeParams?.length) {
-          _arg = `${formatPathParams(pathIncludeParams, namespace)}${arg}`;
+          const _pathIncludeParams = pathIncludeParams.filter(
+            (item) => !arg.includes(`${item}:`),
+          );
+          _arg = `${formatPathParams(_pathIncludeParams, namespace)}${arg}`;
         }
 
         requestRes += requestTem.replace({
