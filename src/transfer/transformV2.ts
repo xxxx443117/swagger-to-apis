@@ -9,11 +9,27 @@ import {
 } from '../utils/transfer';
 import { transferPathInfo } from './v2/transferPathInfo';
 import { transferDefinitionsObject } from './v2/transferDefinitionsObject';
+import { isEmptySchema, registerGenericSchemaKeys } from './v2/utils';
 
 export const namespace = 'SwaggerV2';
 export const namespace_tag = `${namespace}Api`;
 
 export const transformV2 = (doc: OpenAPIV2.Document): TransferResult => {
+  // 预扫描: 找出含有空属性的 definition (泛型候选)
+  const genericKeys = new Set<string>();
+  const defs = doc.definitions || {};
+  for (const [key, schema] of Object.entries(defs)) {
+    if (schema.properties) {
+      for (const [, prop] of Object.entries(schema.properties)) {
+        if (isEmptySchema(prop)) {
+          genericKeys.add(key);
+          break;
+        }
+      }
+    }
+  }
+  registerGenericSchemaKeys(genericKeys);
+
   const requestRes = getRequestApisWithPaths(doc.paths || {}, doc.basePath);
 
   const swaggerTem = createTem('../template/tag/swagger.md');

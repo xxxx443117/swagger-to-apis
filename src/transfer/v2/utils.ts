@@ -3,6 +3,28 @@ import { getNamespaceRef, refToInterface } from '../../utils/transfer';
 import { checkValidVariableName } from '../../utils/tools';
 import { baseType, UnknownType } from '../../types';
 
+/** 判断 schema 是否为空对象 (无 type/$ref/items/properties 等任何字段) */
+export function isEmptySchema(schema: unknown): boolean {
+  if (!schema || typeof schema !== 'object') return false;
+  const keys = Object.keys(schema as Record<string, unknown>);
+  if (keys.length === 0) return true;
+  // 只忽略 description 等元信息字段
+  const contentKeys = keys.filter(k => !['description', 'example', 'title'].includes(k));
+  return contentKeys.length === 0;
+}
+
+/** 泛型 definition 缓存 */
+const genericSchemaKeys = new Set<string>();
+
+export function registerGenericSchemaKeys(keys: Set<string>) {
+  genericSchemaKeys.clear();
+  keys.forEach(k => genericSchemaKeys.add(k));
+}
+
+export function isGenericSchemaKey(key: string): boolean {
+  return genericSchemaKeys.has(key);
+}
+
 export function parseBaseType(type: string | string[]) {
   if (type === 'integer') return 'number';
   if (type === 'file') return 'FormData';
