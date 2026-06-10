@@ -7,7 +7,7 @@ import { UnknownType } from '../../types';
 export const transferPathInfo = (path_info: OpenAPIV2.OperationObject, namespace_tag: string) => {
   let response = UnknownType.key;
   if (path_info.responses) {
-    response = transferResponse(path_info.responses);
+    response = transferResponse(path_info.responses, namespace_tag);
   }
 
   let in_path = '';

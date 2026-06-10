@@ -30,8 +30,8 @@ export const transferDefinitionsObject = (
 
   // 检测泛型: schema 含有空属性, 且被注册为泛型候选
   if (schema.properties && isGenericSchemaKey(key)) {
-    const genericProp = Object.entries(schema.properties).find(
-      ([, prop]) => isEmptySchema(prop)
+    const genericProp = Object.entries(schema.properties).find(([, prop]) =>
+      isEmptySchema(prop)
     )?.[0];
     if (genericProp) {
       let res = '';

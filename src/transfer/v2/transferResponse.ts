@@ -8,27 +8,32 @@ function getRefKey(ref: string): string {
   return ref.split('/').pop() || '';
 }
 
-/** 如果 ref 指向泛型 definition, 返回 RefName<Unknown>; 否则返回原始名 */
-function resolveRef(ref: string): string {
+/** 泛型参数中 Unknown 需要带命名空间前缀 */
+function getUnknownRef(namespace_tag: string): string {
+  return `Api.${namespace_tag}.${UnknownType.key}`;
+}
+
+/** 如果 ref 指向泛型 definition, 返回 RefName<Api.Ns.Unknown>; 否则返回原始名 */
+function resolveRef(ref: string, namespace_tag: string): string {
   const key = refToInterface(ref);
   if (isGenericSchemaKey(getRefKey(ref))) {
-    return `${key}<${UnknownType.key}>`;
+    return `${key}<${getUnknownRef(namespace_tag)}>`;
   }
   return key;
 }
 
-export const transferResponse = (responses: OpenAPIV2.ResponsesObject) => {
+export const transferResponse = (responses: OpenAPIV2.ResponsesObject, namespace_tag: string) => {
   const res: OpenAPIV2.Response = responses.default || responses[200];
 
   if (!res) return UnknownType.key;
 
   if ('$ref' in res) {
-    return resolveRef(res.$ref);
+    return resolveRef(res.$ref, namespace_tag);
   }
 
   if (res.schema) {
     if ('$ref' in res.schema) {
-      return resolveRef(res.schema.$ref);
+      return resolveRef(res.schema.$ref, namespace_tag);
     }
 
     if (res.schema.allOf) {
@@ -56,7 +61,10 @@ export const transferResponse = (responses: OpenAPIV2.ResponsesObject) => {
               }
             }
             if (baseRef) {
-              res_type = itemRef ? `${baseRef}<${itemRef}>` : `${baseRef}<${UnknownType.key}>`;
+              const namespacedItemRef = itemRef
+                ? `Api.${namespace_tag}.${itemRef}`
+                : getUnknownRef(namespace_tag);
+              res_type = `${baseRef}<${namespacedItemRef}>`;
             }
           } else if (data.type === 'array') {
             if ('$ref' in data.items) {
@@ -65,7 +73,7 @@ export const transferResponse = (responses: OpenAPIV2.ResponsesObject) => {
               res_type = `${UnknownType.key}[]`;
             }
           } else if ('$ref' in data) {
-            res_type = resolveRef(data.$ref);
+            res_type = resolveRef(data.$ref, namespace_tag);
           }
         }
       });
