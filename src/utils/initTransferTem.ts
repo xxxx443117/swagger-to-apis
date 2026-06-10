@@ -2,7 +2,12 @@ import { createTem } from './createTem';
 import { saveTem } from './saveTem';
 import * as prettier from 'prettier';
 
-export const initTransferTem = async (output: string, prettierConfig, namespace = 'SwaggerApi') => {
+export const initTransferTem = async (
+  output: string,
+  prettierConfig: prettier.Options,
+  namespace = 'SwaggerApi',
+  dirName = 'apis'
+) => {
   const apiTem = createTem('../template/api.api.md');
   const apiRes = apiTem.replace({
     importBody: '',
@@ -18,11 +23,11 @@ export const initTransferTem = async (output: string, prettierConfig, namespace 
   const apiUtilsTem = createTem('../template/util.ts.md');
 
   await Promise.all([
-    saveTem(`${output}/apis/api.api.ts`, formatApi, { replace: false }),
-    saveTem(`${output}/apis/api.d.ts`, apiTypeTem.value, { replace: false }),
-    saveTem(`${output}/apis/http.ts`, apiHttpTem.value, { replace: false }),
-    saveTem(`${output}/apis/index.ts`, apiIndexTem.value, { replace: false }),
-    saveTem(`${output}/apis/type.ts`, apiTypesTem.value, { replace: false }),
-    saveTem(`${output}/apis/util.ts`, apiUtilsTem.value, { replace: false })
+    saveTem(`${output}/${dirName}/api.api.ts`, formatApi, { replace: false }),
+    saveTem(`${output}/${dirName}/api.d.ts`, apiTypeTem.value, { replace: false }),
+    saveTem(`${output}/${dirName}/http.ts`, apiHttpTem.value, { replace: false }),
+    saveTem(`${output}/${dirName}/index.ts`, apiIndexTem.value, { replace: false }),
+    saveTem(`${output}/${dirName}/type.ts`, apiTypesTem.value, { replace: false }),
+    saveTem(`${output}/${dirName}/util.ts`, apiUtilsTem.value, { replace: false })
   ]);
 };

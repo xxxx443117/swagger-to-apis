@@ -14,7 +14,7 @@ export const namespace = 'SwaggerV2';
 export const namespace_tag = `${namespace}Api`;
 
 export const transformV2 = (doc: OpenAPIV2.Document): TransferResult => {
-  const requestRes = getRequestApisWithPaths(doc.paths, doc.basePath);
+  const requestRes = getRequestApisWithPaths(doc.paths || {}, doc.basePath);
 
   const swaggerTem = createTem('../template/tag/swagger.md');
 
@@ -23,7 +23,7 @@ export const transformV2 = (doc: OpenAPIV2.Document): TransferResult => {
     body: requestRes
   });
 
-  const type = getTypeApisWithDefinitions(doc.definitions);
+  const type = getTypeApisWithDefinitions(doc.definitions || {});
 
   return {
     api: swaggerRes,

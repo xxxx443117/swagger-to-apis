@@ -29,8 +29,8 @@ const prettierConfig: prettier.Options = {
  */
 export async function transformSwagger(
   inputDoc: AllSwaggerDocumentVersions,
-  output: string
-  // namespace?: string,
+  output: string,
+  dirName = 'apis'
 ) {
   let transfer_res: TransferResult = {
     api: '',
@@ -38,12 +38,12 @@ export async function transformSwagger(
   };
 
   if (isV2Document(inputDoc)) {
-    await initTransferTem(output, prettierConfig, namespace_tag_v2);
+    await initTransferTem(output, prettierConfig, namespace_tag_v2, dirName);
     transfer_res = transformV2(inputDoc as OpenAPIV2.Document);
   } else if (isV31Document(inputDoc)) {
     throw new Error('OpenAPI V3.1 is not yet supported');
   } else if (isV3Document(inputDoc)) {
-    await initTransferTem(output, prettierConfig, namespace_tag_v3);
+    await initTransferTem(output, prettierConfig, namespace_tag_v3, dirName);
     transfer_res = transformV3(inputDoc as OpenAPIV3.Document);
   } else {
     throw new Error('Can not detect version ot this version in not supported');
@@ -54,18 +54,22 @@ export async function transformSwagger(
     prettier.format(transfer_res.type, prettierConfig)
   ]);
   await Promise.all([
-    saveTem(`${output}/apis/swagger/swagger.api.ts`, format_api),
-    saveTem(`${output}/apis/swagger/swagger.d.ts`, format_type)
+    saveTem(`${output}/${dirName}/swagger/swagger.api.ts`, format_api),
+    saveTem(`${output}/${dirName}/swagger/swagger.d.ts`, format_type)
   ]);
 }
 
 export async function swaggerToApis(option: Options) {
+  if (!option.url && !option.doc) {
+    throw new Error('swaggerToApis: url or doc is required');
+  }
+
   let doc = option.doc;
   if (option.url) {
     doc = await fetchData(option.url);
   }
 
-  await transformSwagger(doc, option.output);
+  await transformSwagger(doc, option.output || './src', option.dirName);
 
   const date = Date();
   console.log('成功啦 !!!               ', date.toLocaleLowerCase());

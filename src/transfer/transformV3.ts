@@ -10,7 +10,7 @@ export const namespace = 'SwaggerV3';
 export const namespace_tag = `${namespace}Api`;
 
 export const transformV3 = (doc: OpenAPIV3.Document): TransferResult => {
-  const requestRes = getRequestApisWithPaths(doc.paths);
+  const requestRes = getRequestApisWithPaths(doc.paths || {});
 
   const swaggerTem = createTem('../template/tag/swagger.md');
 

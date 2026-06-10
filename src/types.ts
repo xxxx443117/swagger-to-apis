@@ -132,6 +132,8 @@ export interface Options {
   url?: string;
   doc?: AllSwaggerDocumentVersions;
   forceVersion?: string;
+  /** 生成的文件夹名称, 默认 'apis' */
+  dirName?: string;
   // namespace?: string;
 }
 
