@@ -21,7 +21,7 @@ axios.interceptors.response.use(
     return Promise.reject(response);
   },
   (error) => {
-    return Promise.reject(error.response);
+    return Promise.reject(error);
   },
 );
 
@@ -40,7 +40,7 @@ export class Http {
       });
       return response.data;
     } catch (e: unknown) {
-      return e;
+      return Promise.reject(e);
     }
   }
 

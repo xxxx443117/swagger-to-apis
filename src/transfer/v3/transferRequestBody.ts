@@ -4,16 +4,13 @@ import { transferMedia } from './utils';
 
 export const transferRequestBody = (
   requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject,
-  namespace_tag: string,
+  namespace_tag: string
 ) => {
   let params = '';
   let arg = '';
 
   if ('$ref' in requestBody) {
-    const type = getNamespaceRef(
-      namespace_tag,
-      refToInterface(requestBody.$ref),
-    );
+    const type = getNamespaceRef(namespace_tag, refToInterface(requestBody.$ref));
     arg = `data: ${type}`;
     params = 'data';
   }
@@ -33,6 +30,6 @@ export const transferRequestBody = (
   // console.log(params, arg);
   return {
     arg,
-    params,
+    params
   };
 };

@@ -5,8 +5,8 @@ import {
   checkPathIncludeParams,
   formatPathParams,
   transferPathParse,
+  transferPathToVar
 } from '../utils/transfer';
-import { transferPathToVar } from '../../src/utils';
 import { transferPathInfo } from './v2/transferPathInfo';
 import { transferDefinitionsObject } from './v2/transferDefinitionsObject';
 
@@ -20,21 +20,18 @@ export const transformV2 = (doc: OpenAPIV2.Document): TransferResult => {
 
   const swaggerRes = swaggerTem.replace({
     tag: namespace_tag,
-    body: requestRes,
+    body: requestRes
   });
 
   const type = getTypeApisWithDefinitions(doc.definitions);
 
   return {
     api: swaggerRes,
-    type,
+    type
   };
 };
 
-function getRequestApisWithPaths(
-  paths: OpenAPIV2.PathsObject,
-  basePath?: string,
-) {
+function getRequestApisWithPaths(paths: OpenAPIV2.PathsObject, basePath?: string) {
   const requestTem = createTem<{
     method: string;
     handle: string;
@@ -49,15 +46,12 @@ function getRequestApisWithPaths(
 
   let requestRes = '';
 
-  Object.keys(paths).forEach((path) => {
+  Object.keys(paths).forEach(path => {
     const data = paths[path];
-    Object.keys(data).forEach((method) => {
+    Object.keys(data).forEach(method => {
       if (ALLOWED_METHODS.includes(method)) {
         const pathInfo: OpenAPIV2.OperationObject = data[method];
-        const { response, params, arg, in_path_params } = transferPathInfo(
-          pathInfo,
-          namespace,
-        );
+        const { response, params, arg, in_path_params } = transferPathInfo(pathInfo, namespace);
 
         const description = `${pathInfo.deprecated ? '@deprecated' : ''} ${pathInfo.summary} ${pathInfo.tags}  ${pathInfo.description ? `(${pathInfo.description})` : ''}`;
 
@@ -68,16 +62,12 @@ function getRequestApisWithPaths(
          */
         let _arg = arg;
         pathIncludeParams = pathIncludeParams?.filter(
-          (item) =>
-            !new RegExp(`^${item}`).test(arg) &&
-            !new RegExp(`["' ]${item}["']`).test(arg),
+          item => !new RegExp(`^${item}`).test(arg) && !new RegExp(`["' ]${item}["']`).test(arg)
         );
 
         // 如果路径中包含参数，但是没有在parameters中没有，则需要将in_path设置为参数
         if (pathIncludeParams?.length) {
-          const _pathIncludeParams = pathIncludeParams.filter(
-            (item) => !arg.includes(`${item}:`),
-          );
+          const _pathIncludeParams = pathIncludeParams.filter(item => !arg.includes(`${item}:`));
           _arg = `${formatPathParams(_pathIncludeParams, namespace)}${arg}`;
         }
 
@@ -90,7 +80,7 @@ function getRequestApisWithPaths(
           params,
           in_path: '',
           arg: _arg,
-          summary: description,
+          summary: description
         });
       }
     });
@@ -103,7 +93,7 @@ function getTypeApisWithDefinitions(definitions: OpenAPIV2.DefinitionsObject) {
   const typeTem = createTem('../template/tag/type.md');
 
   let schemaRes = '';
-  Object.keys(definitions).forEach((key) => {
+  Object.keys(definitions).forEach(key => {
     const ele = definitions[key];
     const resType = transferDefinitionsObject(key, ele, namespace);
 
@@ -113,7 +103,7 @@ function getTypeApisWithDefinitions(definitions: OpenAPIV2.DefinitionsObject) {
   const typeRes = typeTem.replace({
     namespace,
     body: schemaRes,
-    base: `${UnknownType.type};`,
+    base: `${UnknownType.type};`
   });
 
   return typeRes;

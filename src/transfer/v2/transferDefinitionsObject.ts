@@ -5,7 +5,7 @@ import { transferSchemaToType } from '../../utils/transfer';
 export const transferDefinitionsObject = (
   key: string,
   schema: OpenAPIV2.ReferenceObject | OpenAPIV2.SchemaObject,
-  namespace_tag: string,
+  namespace_tag: string
 ) => {
   const typeKey = transferSchemaToType(key).replace(/-/g, '_');
   const params_type = transferSchema(schema, namespace_tag);
@@ -18,7 +18,7 @@ export const transferDefinitionsObject = (
     `;
   }
   if (schema.type === 'array') {
-    return `type ${typeKey} = ${params_type}[]
+    return `type ${typeKey} = ${params_type}
   `;
   }
   if (schema.enum) {

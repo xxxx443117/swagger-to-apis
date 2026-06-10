@@ -1,19 +1,19 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { getNamespaceRef, refToInterface } from '../../utils/transfer';
-import { ALLOWED_PARAMETERS_IN } from '../../types';
+import { ALLOWED_PARAMETERS_IN, UnknownType } from '../../types';
 import { checkValidVariableName } from '../../utils/tools';
 import { transferSchema } from './utils';
 
 export const transferParameters = (
   parameters: (OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject)[],
-  namespace_tag: string,
+  namespace_tag: string
 ) => {
   let in_path = '';
   let params = '';
   let arg = '';
 
   // 判断是否都是合法变量
-  const isValidVariableName = parameters.every((parameter) => {
+  const isValidVariableName = parameters.every(parameter => {
     if ('$ref' in parameter || !ALLOWED_PARAMETERS_IN.includes(parameter.in)) {
       return false;
     }
@@ -35,9 +35,7 @@ export const transferParameters = (
         arg = arg
           ? `${arg}, ${param1.name}${param1.required ? '' : '?'}: ${param1.type}`
           : `${param1.name}${param1.required ? '' : '?'}: ${param1.type}`;
-        params = params
-          ? `{${param.name}, ${param1.name}}`
-          : `{ ${param1.name}}`;
+        params = params ? `{${param.name}, ${param1.name}}` : `{ ${param1.name}}`;
         in_path = param.path_in ? `${in_path}/${param.name}` : in_path;
       }
     }
@@ -45,7 +43,7 @@ export const transferParameters = (
     return {
       arg,
       in_path,
-      params,
+      params
     };
   }
 
@@ -68,40 +66,43 @@ export const transferParameters = (
     arg,
     params_name: 'params',
     in_path,
-    params,
+    params
   };
 };
 
 function transferParameter(
   parameter: OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject,
-  namespace_tag: string,
+  namespace_tag: string
 ) {
-  if (
-    !parameter ||
-    '$ref' in parameter ||
-    !ALLOWED_PARAMETERS_IN.includes(parameter.in)
-  ) {
+  if (!parameter || '$ref' in parameter || !ALLOWED_PARAMETERS_IN.includes(parameter.in)) {
     return {
       name: '',
       type: '',
       path_in: false,
-      required: false,
+      required: false
     };
   }
 
   const name = parameter.name;
   const path_in = parameter.in === 'path';
-  if ('$ref' in parameter.schema) {
-    const type = getNamespaceRef(
-      namespace_tag,
-      refToInterface(parameter.schema.$ref),
-    );
+  if (parameter.schema && '$ref' in parameter.schema) {
+    const type = getNamespaceRef(namespace_tag, refToInterface(parameter.schema.$ref));
     return {
       name,
       path_in,
       type,
       required: parameter.required,
-      description: parameter.description,
+      description: parameter.description
+    };
+  }
+
+  if (!parameter.schema) {
+    return {
+      name,
+      type: UnknownType.key,
+      path_in,
+      required: parameter.required,
+      description: parameter.description
     };
   }
 
@@ -112,6 +113,6 @@ function transferParameter(
     type,
     path_in,
     required: parameter.required,
-    description: parameter.description,
+    description: parameter.description
   };
 }

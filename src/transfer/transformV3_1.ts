@@ -7,6 +7,6 @@ export const transformV3_1 = (doc: OpenAPIV3_1.Document): TransferResult => {
   console.log(doc);
   return {
     api: '',
-    type: '',
+    type: ''
   };
 };

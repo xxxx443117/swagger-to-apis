@@ -1,16 +1,7 @@
 import { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
-import {
-  namespace_tag_v2,
-  namespace_tag_v3,
-  transformV2,
-  transformV3,
-} from './transfer';
+import { namespace_tag_v2, namespace_tag_v3, transformV2, transformV3 } from './transfer';
 import { AllSwaggerDocumentVersions, Options, TransferResult } from './types';
-import {
-  isV2Document,
-  isV31Document,
-  isV3Document,
-} from './utils/detectDocumentVersion';
+import { isV2Document, isV31Document, isV3Document } from './utils/detectDocumentVersion';
 import * as prettier from 'prettier';
 import { saveTem } from './utils/saveTem';
 import { fetchData } from './fetchs';
@@ -24,7 +15,7 @@ const prettierConfig: prettier.Options = {
   singleQuote: true,
   printWidth: 100,
   arrowParens: 'avoid',
-  bracketSpacing: true,
+  bracketSpacing: true
 };
 
 /**
@@ -38,33 +29,34 @@ const prettierConfig: prettier.Options = {
  */
 export async function transformSwagger(
   inputDoc: AllSwaggerDocumentVersions,
-  output: string,
+  output: string
   // namespace?: string,
 ) {
   let transfer_res: TransferResult = {
     api: '',
-    type: '',
+    type: ''
   };
 
   if (isV2Document(inputDoc)) {
-    initTransferTem(output, prettierConfig, namespace_tag_v2);
+    await initTransferTem(output, prettierConfig, namespace_tag_v2);
     transfer_res = transformV2(inputDoc as OpenAPIV2.Document);
-  } else if (isV3Document(inputDoc)) {
-    // throw new Error('OpenAPI V3 is not yet supported');
-    initTransferTem(output, prettierConfig, namespace_tag_v3);
-    transfer_res = transformV3(inputDoc as OpenAPIV3.Document);
   } else if (isV31Document(inputDoc)) {
     throw new Error('OpenAPI V3.1 is not yet supported');
+  } else if (isV3Document(inputDoc)) {
+    await initTransferTem(output, prettierConfig, namespace_tag_v3);
+    transfer_res = transformV3(inputDoc as OpenAPIV3.Document);
   } else {
     throw new Error('Can not detect version ot this version in not supported');
   }
 
-  //   console.log(prettierConfig, prettier);
-  const format_api = await prettier.format(transfer_res.api, prettierConfig);
-  saveTem(`${output}/apis/swagger/swagger.api.ts`, format_api);
-
-  const format_type = await prettier.format(transfer_res.type, prettierConfig);
-  saveTem(`${output}/apis/swagger/swagger.d.ts`, format_type);
+  const [format_api, format_type] = await Promise.all([
+    prettier.format(transfer_res.api, prettierConfig),
+    prettier.format(transfer_res.type, prettierConfig)
+  ]);
+  await Promise.all([
+    saveTem(`${output}/apis/swagger/swagger.api.ts`, format_api),
+    saveTem(`${output}/apis/swagger/swagger.d.ts`, format_type)
+  ]);
 }
 
 export async function swaggerToApis(option: Options) {

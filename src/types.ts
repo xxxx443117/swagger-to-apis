@@ -3,22 +3,16 @@ import {
   OpenAPI,
   OpenAPIV2,
   OpenAPIV3,
-  OpenAPIV3_1,
+  OpenAPIV3_1
 } from 'openapi-types';
 
-export type Types =
-  | 'object'
-  | 'integer'
-  | 'string'
-  | 'array'
-  | 'number'
-  | 'boolean';
+export type Types = 'object' | 'integer' | 'string' | 'array' | 'number' | 'boolean';
 
 export const baseType = ['number', 'boolean', 'string'];
 
 export const UnknownType = {
   key: 'Unknown',
-  type: 'type Unknown = unknown',
+  type: 'type Unknown = unknown'
 };
 
 export interface PropertiesItem {
@@ -146,15 +140,7 @@ export interface TransferResult {
   type: string;
 }
 
-export const ALLOWED_METHODS = [
-  'get',
-  'post',
-  'put',
-  'patch',
-  'delete',
-  'options',
-  'head',
-];
+export const ALLOWED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options', 'head'];
 
 export const ALLOWED_CODES = ['200'];
 

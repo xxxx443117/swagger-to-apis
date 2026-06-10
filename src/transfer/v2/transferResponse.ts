@@ -19,7 +19,7 @@ export const transferResponse = (responses: OpenAPIV2.ResponsesObject) => {
     if (res.schema.allOf) {
       let res_type = '';
       const allOf = res.schema.allOf;
-      allOf.forEach((item) => {
+      allOf.forEach(item => {
         if (item.properties?.data) {
           if (item.properties.data.type === 'array') {
             if ('$ref' in item.properties.data.items) {

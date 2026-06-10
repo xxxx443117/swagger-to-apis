@@ -4,10 +4,7 @@ import { transferParameters } from './transferParameters';
 import { UnknownType } from '../../types';
 // import { createTem } from '/utils/createTem';
 
-export const transferPathInfo = (
-  path_info: OpenAPIV2.OperationObject,
-  namespace_tag: string,
-) => {
+export const transferPathInfo = (path_info: OpenAPIV2.OperationObject, namespace_tag: string) => {
   let response = UnknownType.key;
   if (path_info.responses) {
     response = transferResponse(path_info.responses);
@@ -38,6 +35,6 @@ export const transferPathInfo = (
     params,
     in_path,
     arg,
-    in_path_params,
+    in_path_params
   };
 };

@@ -5,7 +5,7 @@ import { refToInterface } from '../../utils/transfer';
 
 export const transferResponse = (responses: OpenAPIV3.ResponsesObject) => {
   let namespace_type = UnknownType.key;
-  Object.keys(responses).forEach((code) => {
+  Object.keys(responses).forEach(code => {
     if (ALLOWED_CODES.includes(code)) {
       const data = responses[code];
 

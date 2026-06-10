@@ -3,8 +3,7 @@ import { ALLOWED_METHODS, TransferResult, UnknownType } from '../types';
 import { createTem } from '../utils/createTem';
 
 import { transferPathInfo } from './v3/transferPathInfo';
-import { transferPathToVar } from '../../src/utils';
-import { transferPathParse } from '../utils/transfer';
+import { transferPathParse, transferPathToVar } from '../utils/transfer';
 import { transferComponentsSchemas } from './v3/transferComponentsSchemas';
 
 export const namespace = 'SwaggerV3';
@@ -17,13 +16,13 @@ export const transformV3 = (doc: OpenAPIV3.Document): TransferResult => {
 
   const swaggerRes = swaggerTem.replace({
     tag: namespace_tag,
-    body: requestRes,
+    body: requestRes
   });
 
   const type = getTypeApisWithComponents(doc.components);
   return {
     api: swaggerRes,
-    type,
+    type
   };
 };
 
@@ -31,15 +30,12 @@ function getRequestApisWithPaths(paths: OpenAPIV3.PathsObject) {
   let requestRes = '';
 
   const requestTem = createTem('../template/tag/request.md');
-  Object.keys(paths).forEach((path) => {
+  Object.keys(paths).forEach(path => {
     const data = paths[path];
-    Object.keys(data).forEach((method) => {
+    Object.keys(data).forEach(method => {
       if (ALLOWED_METHODS.includes(method)) {
         const pathInfo: OpenAPIV3.OperationObject = data[method];
-        const { response, params, arg, in_path_params } = transferPathInfo(
-          pathInfo,
-          namespace,
-        );
+        const { response, params, arg, in_path_params } = transferPathInfo(pathInfo, namespace);
 
         const description = `${pathInfo.deprecated ? '@deprecated' : ''} ${pathInfo.summary} ${pathInfo.tags}  ${pathInfo.description ? `(${pathInfo.description})` : ''}`;
         requestRes += requestTem.replace({
@@ -51,7 +47,7 @@ function getRequestApisWithPaths(paths: OpenAPIV3.PathsObject) {
           params,
           in_path: '',
           arg,
-          summary: description,
+          summary: description
         });
       }
     });
@@ -60,7 +56,7 @@ function getRequestApisWithPaths(paths: OpenAPIV3.PathsObject) {
   return requestRes;
 }
 
-function getTypeApisWithComponents(components: OpenAPIV3.ComponentsObject) {
+function getTypeApisWithComponents(components?: OpenAPIV3.ComponentsObject) {
   const typeTem = createTem<{
     namespace: string;
     body: string;
@@ -69,8 +65,8 @@ function getTypeApisWithComponents(components: OpenAPIV3.ComponentsObject) {
 
   let requestRes = '';
 
-  if (components.schemas) {
-    Object.keys(components.schemas).forEach((key) => {
+  if (components?.schemas) {
+    Object.keys(components.schemas).forEach(key => {
       const data = components.schemas[key];
       requestRes += transferComponentsSchemas(key, data, namespace);
     });
@@ -79,7 +75,7 @@ function getTypeApisWithComponents(components: OpenAPIV3.ComponentsObject) {
   const typeRes = typeTem.replace({
     namespace,
     body: requestRes,
-    base: `${UnknownType.type};`,
+    base: `${UnknownType.type};`
   });
 
   return typeRes;

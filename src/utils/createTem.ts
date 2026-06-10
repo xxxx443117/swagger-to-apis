@@ -10,7 +10,7 @@ class Template<ReplaceP extends Record<string, string>> {
   replace(re: ReplaceP) {
     let res = this.value;
     if (re) {
-      Object.keys(re).forEach((key) => {
+      Object.keys(re).forEach(key => {
         res = res.replace(new RegExp(`\\$${key}`, 'g'), re[key]);
       });
     }

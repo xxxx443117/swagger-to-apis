@@ -4,16 +4,13 @@ import { ALLOWED_PARAMETERS_IN } from '../../types';
 import { checkValidVariableName } from '../../utils/tools';
 import { parseBaseType, transferSchema } from './utils';
 
-export const transferParameters = (
-  parameters: OpenAPIV2.Parameters,
-  namespace_tag: string,
-) => {
+export const transferParameters = (parameters: OpenAPIV2.Parameters, namespace_tag: string) => {
   let in_path = '';
   let params = '';
   let arg = '';
 
   // 判断是否都是合法变量
-  const isValidVariableName = parameters.every((parameter) => {
+  const isValidVariableName = parameters.every(parameter => {
     if ('$ref' in parameter || !ALLOWED_PARAMETERS_IN.includes(parameter.in)) {
       return false;
     }
@@ -27,9 +24,7 @@ export const transferParameters = (
     if (param.name) {
       arg = `${param.name}${param.required ? '' : '?'}: ${param.type}`;
       in_path = param.path_in ? `/$\{${param.name}}` : '';
-      params = param.base_type
-        ? `{${param.deconstruction ? '...' : ''}${param.name}}`
-        : param.name;
+      params = param.base_type ? `{${param.deconstruction ? '...' : ''}${param.name}}` : param.name;
     }
     if (parameters[1]) {
       const param1 = transferParameter(parameters[1], namespace_tag);
@@ -54,7 +49,7 @@ export const transferParameters = (
     return {
       arg,
       in_path,
-      params,
+      params
     };
   }
 
@@ -78,42 +73,35 @@ export const transferParameters = (
     arg,
     params_name: 'params',
     in_path,
-    params,
+    params
   };
 };
 
 function transferParameter(
   parameter: OpenAPIV2.ReferenceObject | OpenAPIV2.ParameterObject,
-  namespace_tag: string,
+  namespace_tag: string
 ) {
-  if (
-    !parameter ||
-    '$ref' in parameter ||
-    !ALLOWED_PARAMETERS_IN.includes(parameter.in)
-  ) {
+  if (!parameter || '$ref' in parameter || !ALLOWED_PARAMETERS_IN.includes(parameter.in)) {
     return {
       name: '',
       type: 'unknown',
       path_in: false,
-      required: false,
+      required: false
     };
   }
 
   const name = parameter.name;
   const path_in = parameter.in === 'path';
-  if (parameter.schema && '$ref' in parameter.schema) {
+  if (parameter.schema) {
     if ('$ref' in parameter.schema) {
-      const type = getNamespaceRef(
-        namespace_tag,
-        refToInterface(parameter.schema.$ref),
-      );
+      const type = getNamespaceRef(namespace_tag, refToInterface(parameter.schema.$ref));
       return {
         name,
         path_in,
         type,
         deconstruction: true, // 需要解构
         required: parameter.required,
-        description: parameter.description,
+        description: parameter.description
       };
     }
     const type = transferSchema(parameter.schema, namespace_tag);
@@ -123,7 +111,7 @@ function transferParameter(
       type,
       path_in,
       required: parameter.required,
-      description: parameter.description,
+      description: parameter.description
     };
   }
 
@@ -134,7 +122,7 @@ function transferParameter(
       path_in,
       base_type: true,
       required: parameter.required,
-      description: parameter.description,
+      description: parameter.description
     };
   }
   const type = parseBaseType(parameter.type || parameter.schema?.type);
@@ -145,6 +133,6 @@ function transferParameter(
     path_in,
     base_type: true,
     required: parameter.required,
-    description: parameter.description,
+    description: parameter.description
   };
 }

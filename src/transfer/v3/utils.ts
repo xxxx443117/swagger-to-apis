@@ -1,9 +1,10 @@
 import { OpenAPIV3 } from 'openapi-types';
 import { getNamespaceRef, refToInterface } from '../../utils/transfer';
+import { checkValidVariableName } from '../../utils/tools';
 import { baseType, UnknownType } from '../../types';
 
 export function transferMedia(media: OpenAPIV3.MediaTypeObject) {
-  // let ref = media.schema?.$ref;
+  if (!media.schema) return UnknownType.key;
   if ('$ref' in media.schema) {
     return refToInterface(media.schema.$ref);
   }
@@ -23,11 +24,12 @@ export function parseType(
   properties: {
     [name: string]: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject;
   },
-  namespace_tag: string,
+  namespace_tag: string
 ) {
   if (type === 'object') {
     let res = ``;
-    Object.keys(properties).forEach((name) => {
+    if (!properties) return res;
+    Object.keys(properties).forEach(name => {
       const data = properties[name];
       let description = '';
       if ('description' in data) {
@@ -35,7 +37,8 @@ export function parseType(
       }
       const type = transferSchema(data, namespace_tag);
       if (type) {
-        res += `${name}: ${transferSchema(data, namespace_tag)}; ${description ? `// ${description}` : ''} \n`;
+        const key = checkValidVariableName(name) ? name : `"${name}"`;
+        res += `${key}: ${transferSchema(data, namespace_tag)}; ${description ? `// ${description}` : ''} \n`;
       }
     });
 
@@ -48,7 +51,7 @@ export function parseType(
 
 export function transferSchema(
   schema: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject,
-  namespace_tag: string,
+  namespace_tag: string
 ) {
   if ('$ref' in schema) {
     return getNamespaceRef(namespace_tag, refToInterface(schema.$ref));
@@ -62,7 +65,7 @@ export function transferSchema(
 export function transferAdditionalPropertiesSchemaObject(
   type: 'array' | OpenAPIV3.NonArraySchemaObjectType,
   properties: boolean | OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject,
-  namespace_tag: string,
+  namespace_tag: string
 ) {
   if (typeof properties === 'boolean') return UnknownType.key;
 
@@ -76,15 +79,12 @@ export function transferAdditionalPropertiesSchemaObject(
   return parseBaseType(type);
 }
 
-export function transferSchemaObject(
-  schema: OpenAPIV3.SchemaObject,
-  namespace_tag: string,
-) {
+export function transferSchemaObject(schema: OpenAPIV3.SchemaObject, namespace_tag: string) {
   if ('additionalProperties' in schema) {
     return transferAdditionalPropertiesSchemaObject(
       schema.type,
       schema.additionalProperties,
-      namespace_tag,
+      namespace_tag
     );
   }
   if (schema.type === 'array') {

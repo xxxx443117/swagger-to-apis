@@ -1,5 +1,6 @@
 import { IJsonSchema, OpenAPIV2 } from 'openapi-types';
 import { getNamespaceRef, refToInterface } from '../../utils/transfer';
+import { checkValidVariableName } from '../../utils/tools';
 import { baseType, UnknownType } from '../../types';
 
 export function parseBaseType(type: string | string[]) {
@@ -15,12 +16,12 @@ export function parseType(
   properties: {
     [name: string]: OpenAPIV2.SchemaObject | IJsonSchema;
   },
-  namespace_tag: string,
+  namespace_tag: string
 ) {
   if (type === 'object') {
     let res = ``;
     if (!properties) return res;
-    Object.keys(properties).forEach((name) => {
+    Object.keys(properties).forEach(name => {
       const data = properties[name];
       let description = '';
       if ('description' in data) {
@@ -28,7 +29,8 @@ export function parseType(
       }
       const type = transferSchema(data, namespace_tag);
       if (type) {
-        res += `${name}: ${transferSchema(data, namespace_tag)}; ${description ? `// ${description}` : ''} \n`;
+        const key = checkValidVariableName(name) ? name : `"${name}"`;
+        res += `${key}: ${transferSchema(data, namespace_tag)}; ${description ? `// ${description}` : ''} \n`;
       }
     });
 
@@ -42,7 +44,7 @@ export function parseType(
 export function transferAdditionalPropertiesSchemaObject(
   type: string | string[],
   properties: boolean | IJsonSchema,
-  namespace_tag: string,
+  namespace_tag: string
 ) {
   if (typeof properties === 'boolean') return UnknownType.key;
 
@@ -58,13 +60,13 @@ export function transferAdditionalPropertiesSchemaObject(
 
 export function transferSchemaObject(
   schema: OpenAPIV2.SchemaObject | IJsonSchema,
-  namespace_tag: string,
+  namespace_tag: string
 ) {
   if ('additionalProperties' in schema) {
     return transferAdditionalPropertiesSchemaObject(
       schema.type,
       schema.additionalProperties,
-      namespace_tag,
+      namespace_tag
     );
   }
   if (schema.type === 'array') {
@@ -83,7 +85,7 @@ export function transferSchemaObject(
 
 export function transferSchema(
   schema: OpenAPIV2.ReferenceObject | OpenAPIV2.SchemaObject | IJsonSchema,
-  namespace_tag: string,
+  namespace_tag: string
 ) {
   if ('$ref' in schema) {
     return getNamespaceRef(namespace_tag, refToInterface(schema.$ref));
